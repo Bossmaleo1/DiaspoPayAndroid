@@ -60,7 +60,6 @@ fun MainView(navController: NavHostController, context: Any) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     //This LiveData help us to change our bottom navigation view
-    val viewItem: MutableLiveData<String> = MutableLiveData()
     NavHost(navController = navController, startDestination = "launch_view" ) {
         composable(route = Route.launchView) {
             LaunchView()
@@ -71,7 +70,7 @@ fun MainView(navController: NavHostController, context: Any) {
         }
 
         composable(route = Route.homeView) {
-            HomeApp(navController,scope, drawerState,viewItem, context/*,  userViewModel*/)
+            HomeApp(navController,scope, drawerState, context/*,  userViewModel*/)
         }
     }
 }

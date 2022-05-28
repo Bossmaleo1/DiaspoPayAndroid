@@ -32,109 +32,20 @@ import kotlinx.coroutines.launch
 
 @Composable
 @ExperimentalMaterial3Api
-fun DrawerAppBar(scope: CoroutineScope, drawerState: DrawerState, title: String, viewItem: MutableLiveData<String>, context: Any) {
-    val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
-    val listState = rememberLazyListState()
-    Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            SmallTopAppBar(
-                navigationIcon = {
-
-                },
-                actions = {
-
-                    var expanded by remember { mutableStateOf(false) }
-                    IconButton(onClick = { /* doSomething() */ }) {
-                        BadgedBox(badge = { Badge { Text("8") } }) {
-                            Icon(
-                                imageVector = Icons.Filled.Notifications,
-                                contentDescription = "Localized description"
-                            )
-                        }
-                    }
-
-                    IconButton(onClick = {
-                        expanded = true
-                    }) {
-                        Icon(
-                            imageVector = Icons.Filled.MoreVert,
-                            contentDescription = "Localized description"
-                        )
-                    }
-
-                    //we create our Dropdown Menu Item
-                    DropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }
-                    ) {
-                        DropdownMenuItem(
-                            text = { Text("xxxx") },
-                            onClick = { /* Handle edit! */ },
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.AccountCircle,
-                                    contentDescription = null
-                                )
-                            })
-                        DropdownMenuItem(
-                            text = { Text("xxxx") },
-                            onClick = { /* Handle settings! */ },
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.History,
-                                    contentDescription = null
-                                )
-                            })
-                    }
-                },
-                scrollBehavior = scrollBehavior,
-                title = { Text(title) }
-            )
-        }) { innerPadding ->
-
-        var saveValue by remember { mutableStateOf("") }
-        viewItem.observe(context as LifecycleOwner) {
-            saveValue = it;
-        }
-
-        when(saveValue) {
-            Route.historyTabView ->
-                LazyColumn(contentPadding = innerPadding, state = listState) {
-                    items(count = 2000) {
-                        HistoryView()
-                    }
-
-                    /*items(count = 3) {
-                        repeat(3) {
-                            PublicMessageShimmer()
-                        }
-                    }*/
-                }
-            Route.homeTabView ->
-                LazyColumn(contentPadding = innerPadding, state = listState) {
-                    items(count = 2000) {
-                       // PrivateMessageView()
-                    }
-                }
-        }
-
-    }
-
-
-}
-
-@Composable
-@ExperimentalMaterial3Api
-fun HomeApp(navController: NavHostController, scope: CoroutineScope, drawerState: DrawerState,viewItem: MutableLiveData<String>, context: Any/*, userViewModel: UserViewModel*/) {
+fun HomeApp(
+    navController: NavHostController,
+    scope: CoroutineScope,
+    drawerState: DrawerState,
+    context: Any/*, userViewModel: UserViewModel*/
+) {
     val navController2 = rememberNavController()
     val navBackStackEntry by navController2.currentBackStackEntryAsState()
+    val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
+    val listState = rememberLazyListState()
     /*val currentRoute =
         navBackStackEntry?.destination?.route ?: WazzabyDrawerDestinations.HOME_ROUTE*/
     var switch by rememberSaveable { mutableStateOf(true) }
     var selectedItem by remember { mutableStateOf(0) }
-    viewItem.value = Route.historyTabView
-
     val items = listOf(
         BottomNavigationItem(
             R.drawable.baseline_history_24,
@@ -148,7 +59,76 @@ fun HomeApp(navController: NavHostController, scope: CoroutineScope, drawerState
         )
     )
     Scaffold(topBar = {
-        DrawerAppBar(scope, drawerState, "DiaspoPay",viewItem, context)
+        //DrawerAppBar(scope, drawerState, "DiaspoPay",viewItem, context)
+        Scaffold(
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            topBar = {
+                SmallTopAppBar(
+                    navigationIcon = {
+
+                    },
+                    actions = {
+
+                        var expanded by remember { mutableStateOf(false) }
+                        IconButton(onClick = { /* doSomething() */ }) {
+                            BadgedBox(badge = { Badge { Text("8") } }) {
+                                Icon(
+                                    imageVector = Icons.Filled.Notifications,
+                                    contentDescription = "Localized description"
+                                )
+                            }
+                        }
+
+                        IconButton(onClick = {
+                            expanded = true
+                        }) {
+                            Icon(
+                                imageVector = Icons.Filled.MoreVert,
+                                contentDescription = "Localized description"
+                            )
+                        }
+
+                        //we create our Dropdown Menu Item
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text("xxxx") },
+                                onClick = { /* Handle edit! */ },
+                                leadingIcon = {
+                                    Icon(
+                                        Icons.Outlined.AccountCircle,
+                                        contentDescription = null
+                                    )
+                                })
+                            DropdownMenuItem(
+                                text = { Text("xxxx") },
+                                onClick = { /* Handle settings! */ },
+                                leadingIcon = {
+                                    Icon(
+                                        Icons.Outlined.History,
+                                        contentDescription = null
+                                    )
+                                })
+                        }
+                    },
+                    scrollBehavior = scrollBehavior,
+                    title = { Text("Test MALEO") }
+                )
+            }) { innerPadding ->
+
+            if (switch) {
+                LazyColumn(contentPadding = innerPadding, state = listState) {
+                    items(count = 2000) {
+                        HistoryView()
+                    }
+                }
+            } else {
+
+            }
+
+        }
     },
         bottomBar = {
             NavigationBar {
@@ -165,11 +145,11 @@ fun HomeApp(navController: NavHostController, scope: CoroutineScope, drawerState
                         onClick = {
                             selectedItem = index
                             switch = index != 1
-                            if (switch) {
+                            /*if (switch) {
                                 viewItem.value = Route.historyTabView
                             } else {
                                 viewItem.value = Route.homeTabView
-                            }
+                            }*/
                         }
                     )
                 }
@@ -179,16 +159,18 @@ fun HomeApp(navController: NavHostController, scope: CoroutineScope, drawerState
                 ExtendedFloatingActionButton(
                     icon = { Icon(Icons.Filled.EuroSymbol, "") },
                     text = {
-                        Text(text = "Envoyer de l'argent",
-                            style = MaterialTheme.typography.titleSmall)
+                        Text(
+                            text = "Envoyer de l'argent",
+                            style = MaterialTheme.typography.titleSmall
+                        )
                     },
                     onClick = {/*do something*/ },
                     elevation = FloatingActionButtonDefaults.elevation(8.dp),
                 )
             }
-        }) {innerPadding ->
+        }, content = { innerPadding ->
 
 
-    }
+        })
 
 }
