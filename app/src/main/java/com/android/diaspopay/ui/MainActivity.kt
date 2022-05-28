@@ -5,17 +5,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.android.diaspopay.ui.theme.DiaspoPayTheme
+import com.android.diaspopay.ui.views.HomeApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -56,6 +57,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 @ExperimentalMaterial3Api
 fun MainView(navController: NavHostController, context: Any) {
+    val drawerState = rememberDrawerState(DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+    //This LiveData help us to change our bottom navigation view
+    val viewItem: MutableLiveData<String> = MutableLiveData()
     NavHost(navController = navController, startDestination = "launch_view" ) {
         composable(route = Route.launchView) {
             LaunchView()
@@ -65,21 +70,9 @@ fun MainView(navController: NavHostController, context: Any) {
             Login(navController,/*userViewModel,*/ context)
         }
 
-       /* composable(route = WazzabyDrawerDestinations.HOME) {
-            HomeApp(navController,scope, drawerState, context,  userViewModel)
+        composable(route = Route.homeView) {
+            HomeApp(navController,scope, drawerState,viewItem, context/*,  userViewModel*/)
         }
-
-        composable(route = WazzabyDrawerDestinations.INSCRIPTION_FIRST) {
-            FormStepFirstView(navController)
-        }
-
-        composable(route = WazzabyDrawerDestinations.INSCRIPTION_SECOND) {
-            FormStepSecondView(navController)
-        }
-
-        composable(route = WazzabyDrawerDestinations.INSCRIPTION_DONE) {
-            FormStepDoneView(navController)
-        }*/
     }
 }
 
