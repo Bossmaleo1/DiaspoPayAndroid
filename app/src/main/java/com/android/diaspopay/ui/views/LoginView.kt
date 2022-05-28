@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.android.diaspopay.R
+import com.android.diaspopay.ui.views.model.Route
 
 @Composable
 @ExperimentalMaterial3Api
@@ -180,7 +181,7 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
                 .fillMaxWidth()
                 .padding(top = 20.dp, bottom = 0.dp, start = 30.dp, end = 30.dp),
             onClick = {
-                //navController.navigate("home")
+                navController.navigate(Route.homeView)
                 // Toast.makeText(context,"MALEO MALEO MALEO",Toast.LENGTH_LONG).show()
                 // viewModelLogin(userViewModel, "sidneymaleoregis@gmail.com","Nfkol3324012020@!", context)
                 // Log.d("Test1", "Here");
