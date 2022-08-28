@@ -50,12 +50,12 @@ fun HomeApp(
     val items = listOf(
         BottomNavigationItem(
             Icons.Outlined.History,
-            "Historique",
+            stringResource(R.string.history),
             Route.historyTabView
         ),
         BottomNavigationItem(
             Icons.Outlined.Home,
-            "Accueil",
+            stringResource(R.string.home_app),
             Route.homeTabView
         )
     )
@@ -114,7 +114,7 @@ fun HomeApp(
                         }
                     },
                     scrollBehavior = scrollBehavior,
-                    title = { Text("DiaspoPay") }
+                    title = { Text(stringResource(R.string.app_name)) }
                 )
             }) { innerPadding ->
 
@@ -171,7 +171,7 @@ fun HomeApp(
                     expanded = fabExtended,
                     text = {
                         Text(
-                            text = "Envoyer de l'argent",
+                            text = stringResource(R.string.send_money),
                             style = MaterialTheme.typography.titleSmall
                         )
                     },
