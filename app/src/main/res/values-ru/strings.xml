@@ -6,4 +6,6 @@
     <string name="password_forget">Забыли свой пароль</string>
     <string name="inscription">Зарегистрируйтесь сейчас</string>
     <string name="connexion">Авторизоваться</string>
+    <string name="send_money">Отправлять деньги</string>
+    <string name="history">Исторический</string>
 </resources>

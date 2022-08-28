@@ -6,4 +6,6 @@
     <string name="password_forget">Mot de passe oublié ?</string>
     <string name="inscription">S\'inscrire</string>
     <string name="connexion">Connexion</string>
+    <string name="send_money">Envoyer de  l\'argent</string>
+    <string name="history">Historique</string>
 </resources>
