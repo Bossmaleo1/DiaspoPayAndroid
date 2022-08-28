@@ -1,5 +1,6 @@
 package com.android.diaspopay.ui.views
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -8,6 +9,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.outlined.Login
+import androidx.compose.material.icons.outlined.ManageAccounts
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -67,7 +70,7 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
                         Row() {
                             CircularProgressIndicator()
                             Row(Modifier.padding(10.dp)) {
-                                Text(text = "Connexion en cours...")
+                                Text(text = stringResource(R.string.app_name))
                             }
                         }
 
@@ -94,7 +97,7 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
 
 
         Text(
-            text = "DiaspoPay",
+            text = stringResource(R.string.app_name),
             modifier = Modifier
                 .padding(top = 50.dp, bottom = 40.dp, start = 0.dp, end = 0.dp),
             style = MaterialTheme.typography.titleLarge,
@@ -167,7 +170,7 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
                         fontSize = 15.sp
                     )
                 ) {
-                    append("Mot de passe oublié ?")
+                    append(stringResource(R.string.password_forget))
                 }
 
                 pop()
@@ -179,24 +182,38 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
                 .padding(top = 20.dp, bottom = 0.dp, start = 30.dp, end = 30.dp)
         )
 
-        Button(
+        OutlinedButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 20.dp, bottom = 0.dp, start = 30.dp, end = 30.dp),
+            border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.primary),
             onClick = {
                 navController.navigate(Route.homeView)
             }) {
-            Text(stringResource(R.string.connexion), color = Color.White)
+            Icon(
+                imageVector = Icons.Outlined.Login,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary
+            )
+            Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+            Text(stringResource(R.string.connexion))
         }
 
-        Button(
+        OutlinedButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 4.dp, bottom = 0.dp, start = 30.dp, end = 30.dp),
+            border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.primary),
             onClick = {
 
             }) {
-            Text("Ouvrir un compte", color = Color.White)
+            Icon(
+                imageVector = Icons.Outlined.ManageAccounts,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary
+            )
+            Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+            Text(stringResource(R.string.open_account))
         }
 
 

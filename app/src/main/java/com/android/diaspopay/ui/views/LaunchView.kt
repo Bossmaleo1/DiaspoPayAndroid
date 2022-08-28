@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -49,7 +50,7 @@ fun LaunchView() {
                 },
             ) {
                 Text(
-                    text = "DiaspoPay",
+                    text = stringResource(R.string.app_name),
                     modifier = Modifier
                         .padding(top = 50.dp, bottom = 40.dp, start = 0.dp, end = 0.dp),
                     style = MaterialTheme.typography.titleLarge,

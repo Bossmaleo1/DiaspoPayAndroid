@@ -8,4 +8,6 @@
     <string name="connexion">Авторизоваться</string>
     <string name="send_money">Отправлять деньги</string>
     <string name="history">Исторический</string>
+    <string name="wait">Пожалуйста  ...</string>
+    <string name="open_account">открытие счета</string>
 </resources>
