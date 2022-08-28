@@ -40,7 +40,7 @@ fun HomeApp(
 ) {
     val navController2 = rememberNavController()
     val navBackStackEntry by navController2.currentBackStackEntryAsState()
-    val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val listState = rememberLazyListState()
     /*val currentRoute =
         navBackStackEntry?.destination?.route ?: WazzabyDrawerDestinations.HOME_ROUTE*/
@@ -59,7 +59,6 @@ fun HomeApp(
         )
     )
     Scaffold(topBar = {
-        //DrawerAppBar(scope, drawerState, "DiaspoPay",viewItem, context)
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
@@ -114,7 +113,7 @@ fun HomeApp(
                         }
                     },
                     scrollBehavior = scrollBehavior,
-                    title = { Text("Test MALEO") }
+                    title = { Text("DiaspoPay") }
                 )
             }) { innerPadding ->
 
