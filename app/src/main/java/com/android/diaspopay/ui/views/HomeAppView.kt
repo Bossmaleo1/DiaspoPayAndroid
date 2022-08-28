@@ -42,18 +42,19 @@ fun HomeApp(
     val navBackStackEntry by navController2.currentBackStackEntryAsState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val listState = rememberLazyListState()
-    /*val currentRoute =
-        navBackStackEntry?.destination?.route ?: WazzabyDrawerDestinations.HOME_ROUTE*/
+    //This variable help use to dynamic our extended button
+    var fabExtended by rememberSaveable { mutableStateOf(true) }
+
     var switch by rememberSaveable { mutableStateOf(true) }
     var selectedItem by remember { mutableStateOf(0) }
     val items = listOf(
         BottomNavigationItem(
-            R.drawable.baseline_history_24,
+            Icons.Outlined.History,
             "Historique",
             Route.historyTabView
         ),
         BottomNavigationItem(
-            R.drawable.baseline_home_24,
+            Icons.Outlined.Home,
             "Accueil",
             Route.homeTabView
         )
@@ -72,7 +73,7 @@ fun HomeApp(
                         IconButton(onClick = { /* doSomething() */ }) {
                             BadgedBox(badge = { Badge { Text("8") } }) {
                                 Icon(
-                                    imageVector = Icons.Filled.Notifications,
+                                    imageVector = Icons.Outlined.Notifications,
                                     contentDescription = "Localized description"
                                 )
                             }
@@ -135,7 +136,7 @@ fun HomeApp(
                     NavigationBarItem(
                         icon = {
                             Icon(
-                                painter = painterResource(id = item.id),
+                                item.id,
                                 contentDescription = null
                             )
                         },
@@ -155,8 +156,19 @@ fun HomeApp(
             }
         }, floatingActionButton = {
             if (switch) {
+                //This function help us to make our button extensible
+                LaunchedEffect(listState) {
+                    var prev = 0
+                    snapshotFlow { listState.firstVisibleItemIndex }
+                        .collect {
+                            fabExtended = it <= prev
+                            prev = it
+                        }
+                }
+
                 ExtendedFloatingActionButton(
                     icon = { Icon(Icons.Filled.EuroSymbol, "") },
+                    expanded = fabExtended,
                     text = {
                         Text(
                             text = "Envoyer de l'argent",

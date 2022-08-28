@@ -35,15 +35,15 @@ fun HistoryView() {
 
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
+            .fillMaxWidth(),
         colors = CardDefaults.cardColors(Color.Transparent),
+        onClick = {}
     ) {
 
         Column {
             Row(
                 modifier = Modifier
-                    .fillMaxSize(),
+                    .fillMaxSize().padding(top= 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Image(
@@ -91,13 +91,14 @@ fun HistoryView() {
 
 
         }
-    }
 
-    Divider(
-        color = Color.Gray,
-        modifier = Modifier
-            .padding(10.dp)
-            .fillMaxWidth()
-            .height(0.20.dp),
-    )
+        Divider(
+            color = Color.Gray,
+            modifier = Modifier
+                .padding(top= 10.dp)
+                .fillMaxWidth()
+                .height(0.20.dp),
+        )
+
+    }
 }
