@@ -8,4 +8,6 @@
     <string name="connexion">Connexion</string>
     <string name="send_money">Envoyer de  l\'argent</string>
     <string name="history">Historique</string>
+    <string name="wait">Connexion en cours ...</string>
+    <string name="open_account">Ouvrir un compte</string>
 </resources>

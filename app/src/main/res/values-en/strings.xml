@@ -8,4 +8,6 @@
     <string name="connexion">Connexion</string>
     <string name="send_money">Send Money</string>
     <string name="history">History</string>
+    <string name="wait">Please Wait ...</string>
+    <string name="open_account">Opening an account</string>
 </resources>
