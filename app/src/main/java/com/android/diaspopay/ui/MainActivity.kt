@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 import com.android.diaspopay.ui.views.LaunchView
 import com.android.diaspopay.ui.views.Login
 import com.android.diaspopay.ui.views.model.Route
+import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalMaterial3Api
 //@AndroidEntryPoint
@@ -44,7 +45,7 @@ class MainActivity : ComponentActivity() {
                     MainView(navController, this)
 
                     CoroutineScope(Dispatchers.Main).launch {
-                        delay(100)
+                        delay(200)
                         navController.navigate("login_view")
                     }
                 }
@@ -72,16 +73,5 @@ fun MainView(navController: NavHostController, context: Any) {
         composable(route = Route.homeView) {
             HomeApp(navController,scope, drawerState, context/*,  userViewModel*/)
         }
-    }
-}
-
-
-
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    DiaspoPayTheme {
-       // Greeting("Android")
     }
 }

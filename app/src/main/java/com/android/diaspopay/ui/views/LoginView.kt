@@ -2,6 +2,7 @@ package com.android.diaspopay.ui.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -118,7 +119,8 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 30.dp, bottom = 0.dp, start = 30.dp, end = 30.dp)
+                .padding(top = 30.dp, bottom = 0.dp, start = 30.dp, end = 30.dp),
+            shape = RoundedCornerShape(12.dp)
         )
 
         OutlinedTextField(
@@ -148,7 +150,8 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp, bottom = 0.dp, start = 30.dp, end = 30.dp)
+                .padding(top = 20.dp, bottom = 0.dp, start = 30.dp, end = 30.dp),
+            shape = RoundedCornerShape(12.dp)
         )
 
         ClickableText(
@@ -182,9 +185,6 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
                 .padding(top = 20.dp, bottom = 0.dp, start = 30.dp, end = 30.dp),
             onClick = {
                 navController.navigate(Route.homeView)
-                // Toast.makeText(context,"MALEO MALEO MALEO",Toast.LENGTH_LONG).show()
-                // viewModelLogin(userViewModel, "sidneymaleoregis@gmail.com","Nfkol3324012020@!", context)
-                // Log.d("Test1", "Here");
             }) {
             Text(stringResource(R.string.connexion), color = Color.White)
         }
@@ -194,10 +194,7 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
                 .fillMaxWidth()
                 .padding(top = 4.dp, bottom = 0.dp, start = 30.dp, end = 30.dp),
             onClick = {
-                //navController.navigate("home")
-                // Toast.makeText(context,"MALEO MALEO MALEO",Toast.LENGTH_LONG).show()
-                // viewModelLogin(userViewModel, "sidneymaleoregis@gmail.com","Nfkol3324012020@!", context)
-                // Log.d("Test1", "Here");
+
             }) {
             Text("Ouvrir un compte", color = Color.White)
         }
