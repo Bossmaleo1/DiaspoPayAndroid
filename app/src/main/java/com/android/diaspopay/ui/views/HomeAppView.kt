@@ -1,5 +1,7 @@
 package com.android.diaspopay.ui.views
 
+import androidx.compose.animation.*
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -8,28 +10,17 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.android.diaspopay.R
-import com.android.diaspopay.ui.views.bottomnavigationviews.ContactsSearchView
 import com.android.diaspopay.ui.views.bottomnavigationviews.HistoryView
-import com.android.diaspopay.ui.views.model.BottomNavigationItem
-import com.android.diaspopay.ui.views.model.Route
-import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @Composable
 @ExperimentalMaterial3Api
@@ -37,18 +28,16 @@ fun HomeApp(
     navController: NavHostController,
     scope: CoroutineScope,
     drawerState: DrawerState,
-    context: Any/*, userViewModel: UserViewModel*/
+    context: Any
 ) {
     val navController2 = rememberNavController()
     val navBackStackEntry by navController2.currentBackStackEntryAsState()
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    //val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val listState = rememberLazyListState()
-    //This variable help use to dynamic our extended button
     var fabExtended by rememberSaveable { mutableStateOf(true) }
 
-    var switch by rememberSaveable { mutableStateOf(true) }
-    var selectedItem by remember { mutableStateOf(0) }
-    val items = listOf(
+    val density = LocalDensity.current
+    /*val items = listOf(
         BottomNavigationItem(
             Icons.Outlined.History,
             stringResource(R.string.history),
@@ -89,7 +78,6 @@ fun HomeApp(
                             )
                         }
 
-                        //we create our Dropdown Menu Item
                         DropdownMenu(
                             expanded = expanded,
                             onDismissRequest = { expanded = false }
@@ -146,11 +134,6 @@ fun HomeApp(
                         onClick = {
                             selectedItem = index
                             switch = index != 1
-                            /*if (switch) {
-                                viewItem.value = Route.historyTabView
-                            } else {
-                                viewItem.value = Route.homeTabView
-                            }*/
                         }
                     )
                 }
@@ -176,13 +159,167 @@ fun HomeApp(
                             style = MaterialTheme.typography.titleSmall
                         )
                     },
-                    onClick = {/*do something*/ },
+                    onClick = { },
                     elevation = FloatingActionButtonDefaults.elevation(8.dp),
                 )
             }
         }, content = { innerPadding ->
 
 
-        })
+        })*/
+
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+
+    Scaffold(topBar = {
+        AnimatedVisibility(
+            visible = fabExtended,
+            enter = slideInVertically {
+                // Slide in from 40 dp from the top.
+                with(density) { -40.dp.roundToPx() }
+            } + expandVertically(
+                // Expand from the top.
+                expandFrom = Alignment.Top
+            ) + fadeIn(
+                // Fade in with the initial alpha of 0.3f.
+                initialAlpha = 0.3f
+            ),
+            exit = slideOutVertically() + shrinkVertically() + fadeOut()
+        ) {
+            SmallTopAppBar(
+                navigationIcon = {
+                    Text(text = stringResource(R.string.history), modifier = Modifier.padding(10.dp))
+                },
+                actions = {
+                    var expanded by remember { mutableStateOf(false) }
+
+                    IconButton(onClick = {
+                        expanded = true
+                    }) {
+                        Icon(
+                            imageVector = Icons.Outlined.MoreVert,
+                            contentDescription = "Localized description"
+                        )
+                    }
+
+                    //we create our Dropdown Menu Item
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    text = "Comptes",
+                                    maxLines = 1
+                                )
+                            },
+                            onClick = { /* Handle edit! */ },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.AccountCircle,
+                                    contentDescription = null
+                                )
+                            })
+
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    text = "Paramètres",
+                                    maxLines = 1
+                                )
+                            },
+                            onClick = { /* Handle edit! */ },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.Settings,
+                                    contentDescription = null
+                                )
+                            })
+
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    text = "Nous contacter",
+                                    maxLines = 1
+                                )
+                            },
+                            onClick = { /* Handle edit! */ },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.ContactPage,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    text = "Inviter vos amis",
+                                    maxLines = 1
+                                )
+                            },
+                            onClick = { /* Handle edit! */ },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.PeopleOutline,
+                                    contentDescription = null
+                                )
+                            })
+
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    text = "A propos",
+                                    maxLines = 1
+                                )
+                            },
+                            onClick = { /* Handle edit! */ },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.HelpOutline,
+                                    contentDescription = null
+                                )
+                            })
+                    }
+
+                },
+                scrollBehavior = scrollBehavior,
+                title = {}
+            )
+        }
+    },
+    floatingActionButton = {
+        //This function help us to make our button extensible
+        LaunchedEffect(listState) {
+            var prev = 0
+            snapshotFlow { listState.firstVisibleItemIndex }
+                .collect {
+                    fabExtended = it <= prev
+                    prev = it
+                }
+        }
+
+        ExtendedFloatingActionButton(
+            icon = { Icon(Icons.Filled.EuroSymbol, "") },
+            expanded = fabExtended,
+            modifier = Modifier.padding(bottom = 50.dp),
+            text = {
+                Text(
+                    text = stringResource(R.string.send_money),
+                    style = MaterialTheme.typography.titleSmall
+                )
+            },
+            onClick = { },
+            elevation = FloatingActionButtonDefaults.elevation(8.dp),
+        )
+
+    }) { innerPadding ->
+        LazyColumn(contentPadding = innerPadding, state = listState) {
+            items(count = 2000) {
+                HistoryView()
+            }
+        }
+    }
 
 }
