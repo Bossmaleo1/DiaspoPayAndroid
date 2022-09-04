@@ -66,8 +66,8 @@ fun LaunchView() {
             .padding(60.dp),
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "©DiaspoPay 2022 version 1.0",
-            color = colorResource(R.color.Purple700))
+        Text(text = "©DiaspoPay 2022 V. 1.0",
+            color = MaterialTheme.colorScheme.primary)
     }
 
     LaunchedEffect(true) {

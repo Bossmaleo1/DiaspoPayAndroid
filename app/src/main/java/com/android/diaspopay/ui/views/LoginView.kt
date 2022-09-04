@@ -108,15 +108,19 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
 
         OutlinedTextField(
             value = email,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f),
+            ),
             onValueChange = { email = it },
             label = { Text(stringResource(id = R.string.your_email)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             placeholder = { Text("") },
             leadingIcon = {
                 IconButton(onClick = { }) {
                     Icon(
                         imageVector = Icons.Filled.Email,
                         contentDescription = "",
-                        tint = colorResource(R.color.Purple700)
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
             },
@@ -128,6 +132,9 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
 
         OutlinedTextField(
             value = password,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f),
+            ),
             onValueChange = { password = it },
             label = { Text(stringResource(id = R.string.your_password)) },
             visualTransformation =
@@ -138,7 +145,7 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
                     Icon(
                         imageVector = Icons.Filled.Lock,
                         contentDescription = "",
-                        tint = colorResource(R.color.Purple700)
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
             },
@@ -165,7 +172,7 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
                 )
                 withStyle(
                     style = SpanStyle(
-                        color = colorResource(R.color.Purple700),
+                        color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold, textDecoration = TextDecoration.Underline,
                         fontSize = 15.sp
                     )

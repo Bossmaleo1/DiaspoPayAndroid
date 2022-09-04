@@ -1,5 +1,6 @@
 package com.android.diaspopay.ui
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -24,6 +25,8 @@ import kotlinx.coroutines.launch
 import com.android.diaspopay.ui.views.LaunchView
 import com.android.diaspopay.ui.views.Login
 import com.android.diaspopay.ui.views.model.Route
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalMaterial3Api
@@ -71,7 +74,26 @@ fun MainView(navController: NavHostController, context: Any) {
         }
 
         composable(route = Route.homeView) {
+            RequesReadContactPermission()
             HomeApp(navController,scope, drawerState, context/*,  userViewModel*/)
+        }
+    }
+}
+
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+fun RequesReadContactPermission() {
+    val locationPermissionsState = rememberMultiplePermissionsState(
+        listOf(
+            android.Manifest.permission.READ_CONTACTS
+        )
+    )
+
+    if (locationPermissionsState.allPermissionsGranted) {
+        //Text("Thanks! I can access your exact location :D")
+    } else {
+        CoroutineScope(Dispatchers.Main).launch {
+            locationPermissionsState.launchMultiplePermissionRequest()
         }
     }
 }
