@@ -10,9 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddComment
 import androidx.compose.material.icons.filled.ArrowDropDownCircle
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material.icons.outlined.Flag
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -43,7 +41,8 @@ fun HistoryView() {
         Column {
             Row(
                 modifier = Modifier
-                    .fillMaxSize().padding(top= 10.dp),
+                    .fillMaxSize()
+                    .padding(top = 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Image(
@@ -56,6 +55,7 @@ fun HistoryView() {
                         .width(50.dp)
                         .clip(RoundedCornerShape(corner = CornerSize(25.dp)))
                 )
+
                 Row(
                     modifier = Modifier
                         .fillMaxSize(),
@@ -66,36 +66,53 @@ fun HistoryView() {
                             text = userName,
                             style = MaterialTheme.typography.titleMedium
                         )
+
                         Text(
                             text = amount,
-                            modifier = Modifier.padding(top = 20.dp, bottom = 0.dp, start = 0.dp, end = 0.dp),
+                            modifier = Modifier.padding(top = 20.dp),
                             style = MaterialTheme.typography.titleSmall
                         )
+
+                        Row (modifier = Modifier.padding(top = 20.dp)) {
+                            Icon(
+                                Icons.Outlined.MoreHoriz,
+                                contentDescription = null
+                            )
+
+                            Text(text = "Détails", modifier = Modifier.padding(start = 4.dp))
+                        }
                     }
-                    //Spacer(modifier = Modifier.width(100.dp))
 
                     Column(modifier = Modifier.padding(4.dp)) {
                         Text(
                             text = "22 Mai 2022",
                             style = MaterialTheme.typography.titleMedium
                         )
+
                         Text(
                             text = "Payé",
-                            modifier = Modifier.padding(top = 20.dp, bottom = 0.dp, start = 0.dp, end = 0.dp),
+                            modifier = Modifier.padding(top = 20.dp),
                             style = MaterialTheme.typography.titleSmall,
                             color = Color.Green
                         )
+
+                        Row (modifier = Modifier.padding(top = 20.dp)) {
+                            Icon(
+                                Icons.Outlined.Refresh,
+                                contentDescription = null
+                            )
+
+                            Text(text = "Renvoyer", modifier = Modifier.padding(start = 4.dp))
+                        }
                     }
                 }
             }
-
-
         }
 
         Divider(
             color = Color.Gray,
             modifier = Modifier
-                .padding(top= 10.dp)
+                .padding(top = 10.dp)
                 .fillMaxWidth()
                 .height(0.20.dp),
         )

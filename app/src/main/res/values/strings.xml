@@ -10,4 +10,5 @@
     <string name="history">History</string>Ouvrir un compte
     <string name="wait">Please Wait ...</string>
     <string name="open_account">Opening an account</string>
+    <string name="logout">Logout</string>
 </resources>

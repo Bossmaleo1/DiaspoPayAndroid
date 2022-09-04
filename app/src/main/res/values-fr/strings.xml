@@ -10,4 +10,5 @@
     <string name="history">Historique</string>
     <string name="wait">Connexion en cours ...</string>
     <string name="open_account">Ouvrir un compte</string>
+    <string name="logout">Déconnexion</string>
 </resources>
