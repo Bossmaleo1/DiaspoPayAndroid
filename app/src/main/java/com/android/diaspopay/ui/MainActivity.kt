@@ -75,7 +75,7 @@ fun MainView(navController: NavHostController, context: Any) {
 
         composable(route = Route.homeView) {
             RequesReadContactPermission()
-            HomeApp(navController,scope, drawerState, context/*,  userViewModel*/)
+            HomeApp(navController)
         }
     }
 }
