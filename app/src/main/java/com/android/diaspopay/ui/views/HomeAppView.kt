@@ -22,6 +22,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.android.diaspopay.R
+import com.android.diaspopay.ui.views.bottomnavigationviews.ContactsSearchView
 import com.android.diaspopay.ui.views.bottomnavigationviews.HistoryView
 import com.android.diaspopay.ui.views.model.BottomNavigationItem
 import com.android.diaspopay.ui.views.model.Route
@@ -125,7 +126,7 @@ fun HomeApp(
                     }
                 }
             } else {
-
+                ContactsSearchView()
             }
 
         }
