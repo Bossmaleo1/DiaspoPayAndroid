@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.android.diaspopay.R
 import com.android.diaspopay.ui.views.bottomnavigationviews.HistoryView
+import com.android.diaspopay.ui.views.model.Route
 
 @Composable
 @ExperimentalMaterial3Api
@@ -51,7 +52,10 @@ fun HomeApp(navController: NavHostController) {
                             Icons.Outlined.History,
                             contentDescription = null
                         )
-                        Text(text = stringResource(R.string.history), modifier = Modifier.padding(start = 10.dp))
+                        Text(
+                            text = stringResource(R.string.history),
+                            modifier = Modifier.padding(start = 10.dp)
+                        )
                     }
                 },
                 actions = {
@@ -171,32 +175,34 @@ fun HomeApp(navController: NavHostController) {
             )
         }
     },
-    floatingActionButton = {
-        //This function help us to make our button extensible
-        LaunchedEffect(listState) {
-            var prev = 0
-            snapshotFlow { listState.firstVisibleItemIndex }
-                .collect {
-                    fabExtended = it <= prev
-                    prev = it
-                }
-        }
+        floatingActionButton = {
+            //This function help us to make our button extensible
+            LaunchedEffect(listState) {
+                var prev = 0
+                snapshotFlow { listState.firstVisibleItemIndex }
+                    .collect {
+                        fabExtended = it <= prev
+                        prev = it
+                    }
+            }
 
-        ExtendedFloatingActionButton(
-            icon = { Icon(Icons.Filled.EuroSymbol, "") },
-            expanded = fabExtended,
-            modifier = Modifier.padding(bottom = 50.dp),
-            text = {
-                Text(
-                    text = stringResource(R.string.send_money),
-                    style = MaterialTheme.typography.titleSmall
-                )
-            },
-            onClick = { },
-            elevation = FloatingActionButtonDefaults.elevation(8.dp),
-        )
+            ExtendedFloatingActionButton(
+                icon = { Icon(Icons.Filled.EuroSymbol, "") },
+                expanded = fabExtended,
+                modifier = Modifier.padding(bottom = 20.dp),
+                text = {
+                    Text(
+                        text = stringResource(R.string.send_money),
+                        style = MaterialTheme.typography.titleSmall
+                    )
+                },
+                onClick = {
+                    navController.navigate(Route.searchView)
+                },
+                elevation = FloatingActionButtonDefaults.elevation(8.dp),
+            )
 
-    }) { innerPadding ->
+        }) { innerPadding ->
         LazyColumn(contentPadding = innerPadding, state = listState) {
             items(count = 2000) {
                 HistoryView()
