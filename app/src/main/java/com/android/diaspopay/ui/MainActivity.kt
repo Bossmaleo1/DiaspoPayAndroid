@@ -24,6 +24,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.android.diaspopay.ui.views.LaunchView
 import com.android.diaspopay.ui.views.Login
+import com.android.diaspopay.ui.views.bottomnavigationviews.ContactsSearchView
 import com.android.diaspopay.ui.views.model.Route
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
@@ -77,6 +78,10 @@ fun MainView(navController: NavHostController, context: Any) {
             RequesReadContactPermission()
             HomeApp(navController)
         }
+
+        composable(route = Route.searchView) {
+            ContactsSearchView()
+        }
     }
 }
 
@@ -85,7 +90,7 @@ fun MainView(navController: NavHostController, context: Any) {
 fun RequesReadContactPermission() {
     val locationPermissionsState = rememberMultiplePermissionsState(
         listOf(
-            android.Manifest.permission.READ_CONTACTS
+            Manifest.permission.READ_CONTACTS
         )
     )
 
