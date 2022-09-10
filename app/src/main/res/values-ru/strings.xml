@@ -12,4 +12,7 @@
     <string name="open_account">открытие счета</string>
     <string name="logout">Выйти</string>
     <string name="search">поиск</string>
+    <string name="resend">Отправить</string>
+    <string name="details">Подробности</string>
+    <string name="paid">Оплаченный</string>
 </resources>

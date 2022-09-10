@@ -2,6 +2,7 @@ package com.android.diaspopay.ui.views.bottomnavigationviews
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,8 +35,7 @@ fun HistoryView() {
     Card(
         modifier = Modifier
             .fillMaxWidth(),
-        colors = CardDefaults.cardColors(Color.Transparent),
-        onClick = {}
+        colors = CardDefaults.cardColors(Color.Transparent)
     ) {
 
         Column {
@@ -73,13 +73,17 @@ fun HistoryView() {
                             style = MaterialTheme.typography.titleSmall
                         )
 
-                        Row (modifier = Modifier.padding(top = 20.dp)) {
+                        Row (modifier = Modifier
+                            .padding(top = 20.dp)
+                            .clickable {  },) {
                             Icon(
                                 Icons.Outlined.MoreHoriz,
                                 contentDescription = null
                             )
 
-                            Text(text = "Détails", modifier = Modifier.padding(start = 4.dp))
+                            Text(
+                                text = stringResource(R.string.details),
+                                modifier = Modifier.padding(start = 4.dp))
                         }
                     }
 
@@ -90,19 +94,19 @@ fun HistoryView() {
                         )
 
                         Text(
-                            text = "Payé",
+                            text =  stringResource(R.string.paid),
                             modifier = Modifier.padding(top = 20.dp),
                             style = MaterialTheme.typography.titleSmall,
                             color = Color.Green
                         )
 
-                        Row (modifier = Modifier.padding(top = 20.dp)) {
+                        Row (modifier = Modifier.padding(top = 20.dp).clickable {  },) {
                             Icon(
                                 Icons.Outlined.Refresh,
                                 contentDescription = null
                             )
 
-                            Text(text = "Renvoyer", modifier = Modifier.padding(start = 4.dp))
+                            Text(text = stringResource(R.string.resend), modifier = Modifier.padding(start = 4.dp))
                         }
                     }
                 }
