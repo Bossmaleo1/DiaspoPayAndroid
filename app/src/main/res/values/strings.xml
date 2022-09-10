@@ -12,4 +12,7 @@
     <string name="open_account">Opening an account</string>
     <string name="logout">Logout</string>
     <string name="search">Search</string>
+    <string name="resend">Send Back</string>
+    <string name="details">Details</string>
+    <string name="paid">Paid</string>
 </resources>

@@ -12,4 +12,7 @@
     <string name="open_account">Abrindo uma conta</string>
     <string name="logout">Sair</string>
     <string name="search">Procurar</string>
+    <string name="resend">Reenviar</string>
+    <string name="details">Detalhes</string>
+    <string name="paid">Pago</string>
 </resources>
