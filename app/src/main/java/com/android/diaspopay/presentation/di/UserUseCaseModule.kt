@@ -1,0 +1,70 @@
+package com.android.diaspopay.presentation.di
+
+import com.android.diaspopay.domain.repository.UserRepository
+import com.android.diaspopay.domain.usecase.user.*
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+class UserUseCaseModule {
+    @Singleton
+    @Provides
+    fun provideTokenUseCase(
+        userRepository: UserRepository
+    ): GetTokenUseCase {
+        return GetTokenUseCase(userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserUseCase(
+        userRepository: UserRepository
+    ): GetUserUseCase {
+        return GetUserUseCase(userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSaveUserUseCase(
+        userRepository: UserRepository
+    ): SaveUserUseCase {
+        return SaveUserUseCase(userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSaveTokenUseCase(
+        userRepository: UserRepository
+    ): SaveTokenUseCase {
+        return SaveTokenUseCase(userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetSavedUserUseCase(
+        userRepository: UserRepository
+    ): GetSavedUserUseCase {
+        return GetSavedUserUseCase(userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetSavedTokenUseCase(
+        userRepository: UserRepository
+    ): GetSavedTokenUseCase {
+        return GetSavedTokenUseCase(userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDeleteSavedUserUseCase(
+        userRepository: UserRepository
+    ): DeleteSavedUserUseCase {
+        return DeleteSavedUserUseCase(userRepository)
+    }
+
+}

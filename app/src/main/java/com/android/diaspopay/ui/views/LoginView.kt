@@ -1,5 +1,8 @@
 package com.android.diaspopay.ui.views
 
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -30,15 +33,21 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
 import com.android.diaspopay.R
+import com.android.diaspopay.data.model.data.User
+import com.android.diaspopay.data.model.dataRoom.TokenRoom
+import com.android.diaspopay.data.model.dataRoom.UserRoom
+import com.android.diaspopay.data.util.Resource
+import com.android.diaspopay.presentation.viewModel.UserViewModel
 import com.android.diaspopay.ui.views.model.Route
 
 @Composable
 @ExperimentalMaterial3Api
-fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ context: Any) {
-    var email by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
+fun Login(navController: NavHostController, userViewModel: UserViewModel, context: Any) {
+    var email by rememberSaveable { mutableStateOf("sidneymaleoregis@gmail.com") }
+    var password by rememberSaveable { mutableStateOf("Nfkol3324012020@!") }
     var passwordHidden by rememberSaveable { mutableStateOf(true) }
     val isLoading = remember { mutableStateOf(false) }
 
@@ -83,6 +92,84 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
 
                 }
             )
+        }
+    }
+
+    fun getUser(userViewModel: UserViewModel, userName: String, token: String, context: Any) {
+        userViewModel.getUser(userName, token)
+        userViewModel.user.observe(context as LifecycleOwner) { user->
+            when (user) {
+                is Resource.Success -> {
+                    Log.d("Test1", "'user':'${user.data?.Users?.get(0)?.lastName}'");
+                    val user = user.data?.Users?.get(0) as User
+                    //we save the user Token
+                    userViewModel.saveToken(
+                        TokenRoom(
+                            1,
+                            //we split the bear characters
+                            token.split(" ")[1])
+                    )
+
+                    //We save the user
+                    userViewModel.saveUser(
+                        UserRoom(
+                            user.id,
+                            user.firstName,
+                            user.lastName,
+                            user.roles[0],
+                            user.phone,
+                            user.nationality,
+                            user.sex,
+                            user.state,
+                            //we split the bear characters
+                            token.split(" ")[1],
+                            user.email,
+                            user.username
+                        )
+                    )
+                    hideProgressBar()
+                    navController.navigate(Route.homeView)
+                }
+
+                is Resource.Error -> {
+                    hideProgressBar()
+                    user.message?.let {
+                        Toast.makeText(context as Context, "An error occurred : $it", Toast.LENGTH_LONG)
+                            .show()
+                    }
+                }
+
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+            }
+        }
+    }
+
+    fun viewModelLogin(userViewModel: UserViewModel, userName: String, password: String, context: Any) {
+        userViewModel.getToken(userName, password)
+        userViewModel.token.observe(context as LifecycleOwner) {token->
+            when (token) {
+                is Resource.Success -> {
+                    Log.d("Test1", "'token':'${token.data?.token}'");
+                    token.data?.token?.let {
+                        getUser(userViewModel, userName,
+                            "Bearer $it",context as LifecycleOwner)
+                    }
+                }
+
+                is Resource.Error -> {
+                    hideProgressBar()
+                    token.message?.let {
+                        Toast.makeText(context as Context, "An error occurred : $it", Toast.LENGTH_LONG)
+                            .show()
+                    }
+                }
+
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+            }
         }
     }
 
@@ -195,7 +282,8 @@ fun Login(navController: NavHostController, /*userViewModel: UserViewModel,*/ co
                 .padding(top = 20.dp, bottom = 0.dp, start = 30.dp, end = 30.dp),
             border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.primary),
             onClick = {
-                navController.navigate(Route.homeView)
+                //navController.navigate(Route.homeView)
+                viewModelLogin(userViewModel, email,password, context)
             }) {
             Icon(
                 imageVector = Icons.Outlined.Login,
