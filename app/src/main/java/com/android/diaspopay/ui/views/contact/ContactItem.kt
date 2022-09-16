@@ -16,10 +16,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.android.diaspopay.R
+import com.android.diaspopay.data.model.Contact
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ContactItem() {
+fun ContactItem(contact: Contact) {
     Card(
         modifier = Modifier
             .fillMaxWidth(),
@@ -51,12 +52,12 @@ fun ContactItem() {
                 ) {
                     Column(modifier = Modifier.padding(4.dp)) {
                         Text(
-                            text = "Sidney LAKELEO",
+                            text = contact.name,
                             style = MaterialTheme.typography.titleMedium
                         )
 
                         Text(
-                            text = "+242 05 32 65 90",
+                            text = contact.phoneNumber,
                             modifier = Modifier.padding(4.dp),
                             style = MaterialTheme.typography.titleSmall
                         )
