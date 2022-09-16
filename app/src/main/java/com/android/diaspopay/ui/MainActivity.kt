@@ -2,6 +2,7 @@ package com.android.diaspopay.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,12 +11,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.android.diaspopay.presentation.viewModel.UserViewModel
+import com.android.diaspopay.presentation.viewModel.UserViewModelFactory
 import com.android.diaspopay.ui.theme.DiaspoPayTheme
 import com.android.diaspopay.ui.views.HomeApp
 import kotlinx.coroutines.CoroutineScope
@@ -29,10 +33,15 @@ import com.android.diaspopay.ui.views.model.Route
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @ExperimentalMaterial3Api
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var userFactory: UserViewModelFactory
+    private lateinit var userViewModel: UserViewModel //we call our login viewModel
+    var token: String? = null
 
     @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,40 +56,52 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
 
                     MainView(navController, this)
+                    userViewModel.getSavedToken().observe(this as LifecycleOwner) { token ->
+                        this.token = token?.token
+                    }
 
                     CoroutineScope(Dispatchers.Main).launch {
                         delay(200)
-                        navController.navigate("login_view")
+                        if (token === null) {
+                            navController.navigate(Route.loginView)
+                        } else {
+                           navController.navigate(Route.homeView)
+                        }
                     }
                 }
             }
 
         }
     }
-}
 
-@Composable
-@ExperimentalMaterial3Api
-fun MainView(navController: NavHostController, context: Any) {
-    val drawerState = rememberDrawerState(DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
-    //This LiveData help us to change our bottom navigation view
-    NavHost(navController = navController, startDestination = "launch_view" ) {
-        composable(route = Route.launchView) {
-            LaunchView()
-        }
+    private fun initViewModel() {
+        userViewModel = ViewModelProvider(this, userFactory)[UserViewModel::class.java]
+    }
 
-        composable(route = Route.loginView) {
-            Login(navController,/*userViewModel,*/ context)
-        }
+    @Composable
+    @ExperimentalMaterial3Api
+    fun MainView(navController: NavHostController, context: Any) {
+        val activity = (LocalContext.current as? Activity)
+        //We call our init view model method
+        this.initViewModel()
+        //This LiveData help us to change our bottom navigation view
+        NavHost(navController = navController, startDestination = "launch_view" ) {
+            composable(route = Route.launchView) {
+                LaunchView()
+            }
 
-        composable(route = Route.homeView) {
-            RequesReadContactPermission()
-            HomeApp(navController)
-        }
+            composable(route = Route.loginView) {
+                Login(navController,userViewModel, context)
+            }
 
-        composable(route = Route.searchView) {
-            ContactsSearchView()
+            composable(route = Route.homeView) {
+                RequesReadContactPermission()
+                HomeApp(navController)
+            }
+
+            composable(route = Route.searchView) {
+                ContactsSearchView()
+            }
         }
     }
 }

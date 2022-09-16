@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 
 @ExperimentalMaterial3Api
 @Composable
-fun SampleShimmer() {
+fun TransferShimmer() {
 
     //These colors will be used on the brush. The lightest color should be in the middle
 
@@ -40,7 +40,7 @@ fun SampleShimmer() {
             )
         )
     )
-    val brush = linearGradient(
+    val brush = Brush.linearGradient(
         colors = gradient,
         start = Offset(200f, 200f),
         end = Offset(
@@ -48,6 +48,13 @@ fun SampleShimmer() {
             y = translateAnimation.value
         )
     )
+    ShimmerGridItem(brush = brush)
+    ShimmerGridItem(brush = brush)
+    ShimmerGridItem(brush = brush)
+    ShimmerGridItem(brush = brush)
+    ShimmerGridItem(brush = brush)
+    ShimmerGridItem(brush = brush)
+    ShimmerGridItem(brush = brush)
     ShimmerGridItem(brush = brush)
 }
 
@@ -95,19 +102,4 @@ fun ShimmerGridItem(brush: Brush) {
             )
         }
     }
-}
-
-@ExperimentalMaterial3Api
-@Composable
-@Preview(showBackground = true)
-fun ShimmerPreview() {
-    ShimmerGridItem(
-        brush = linearGradient(
-            listOf(
-                Color.LightGray.copy(alpha = 0.9f),
-                Color.LightGray.copy(alpha = 0.4f),
-                Color.LightGray.copy(alpha = 0.9f)
-            )
-        )
-    )
 }

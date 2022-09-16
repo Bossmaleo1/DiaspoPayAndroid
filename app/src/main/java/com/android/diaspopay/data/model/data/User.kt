@@ -17,7 +17,7 @@ data class User(
     val state: String?,
     @SerializedName("nationality")
     val nationality: String?,
-    @SerializedName("nationality")
+    @SerializedName("phone")
     val phone: String?,
     @SerializedName("sex")
     val sex: String?,
