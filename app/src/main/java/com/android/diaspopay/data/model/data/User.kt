@@ -1,0 +1,26 @@
+package com.android.diaspopay.data.model.data
+
+import com.google.gson.annotations.SerializedName
+
+data class User(
+    @SerializedName("id")
+    val id: Int?,
+    @SerializedName("lastName")
+    val lastName: String?,
+    @SerializedName("firstName")
+    val firstName: String?,
+    @SerializedName("email")
+    val email: String?,
+    @SerializedName("username")
+    val username: String?,
+    @SerializedName("state")
+    val state: String?,
+    @SerializedName("nationality")
+    val nationality: String?,
+    @SerializedName("nationality")
+    val phone: String?,
+    @SerializedName("sex")
+    val sex: String?,
+    @SerializedName("roles")
+    val roles: List<String>,
+)
