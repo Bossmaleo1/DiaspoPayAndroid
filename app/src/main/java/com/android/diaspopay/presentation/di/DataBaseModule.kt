@@ -16,7 +16,7 @@ class DataBaseModule {
     @Singleton
     @Provides
     fun provideUserDatabase(app: Application): DiaspoPayDataBase {
-        return Room.databaseBuilder(app,DiaspoPayDataBase::class.java,"diaspo_pay_db")
+        return Room.databaseBuilder(app, DiaspoPayDataBase::class.java,"diaspo_pay_db")
             .fallbackToDestructiveMigration()
             .build()
     }
