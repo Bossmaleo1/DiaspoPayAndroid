@@ -15,6 +15,8 @@ interface UserRepository {
 
     suspend fun deleteUser(user: UserRoom)
 
+    suspend fun deleteUserTable()
+
     //Flow for Room Data backup
     fun getSavedUser(userToken: String):Flow<UserRoom>
 
