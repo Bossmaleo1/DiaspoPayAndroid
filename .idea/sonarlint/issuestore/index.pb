@@ -11,14 +11,10 @@ m
 =app/src/main/java/com/android/diaspopay/data/model/Contact.kt,d/1/d1e3493e708ea0e4a419a62781e73b4f6c79db26
 r
 Bapp/src/main/java/com/android/diaspopay/presentation/util/Event.kt,5/2/520f691ee969aec6c1efac10bb75f02330c2fc17
-x
-Happ/src/main/java/com/android/diaspopay/data/db/dao/DiaspoPayDataBase.kt,9/8/98ea915a77bfc5f8e91a5daa8f520fbd3a956179
 {
 Kapp/src/main/java/com/android/diaspopay/ui/views/shimmer/TransferShimmer.kt,1/4/1447a30759ee38c459c8721e52c47b97494c8cee
 A
 gradle.properties,2/a/2afbb999f001938c88fa43fc2ef52abf0f8213e4
-}
-Mapp/src/main/java/com/android/diaspopay/data/repository/UserRepositoryImpl.kt,5/b/5b7d3dfdf766197fc1a5a3ab068937f2fbf4a233
 ?
 settings.gradle,0/5/05efc8b1657769a27696d478ded1e95f38737233
 @
@@ -49,8 +45,6 @@ x
 Happ/src/main/java/com/android/diaspopay/presentation/di/FactoryModule.kt,0/e/0ec6af7642298f715926d6e5ed7fd942e174ada2
 i
 9app/src/main/java/com/android/diaspopay/ui/theme/Theme.kt,7/f/7fc432a5a17d1af7248da08ff17e485614d103bb
-w
-Gapp/src/main/java/com/android/diaspopay/data/model/dataRoom/UserRoom.kt,f/9/f95b93d6053c5d9964a23c1075dabad6b212b8a9
 r
 Bapp/src/main/java/com/android/diaspopay/data/model/api/ApiLogin.kt,3/c/3c9ebbf597f47b1d3538fee8411f1cc6deb9e502
 z
@@ -63,5 +57,3 @@ o
 ?app/src/main/java/com/android/diaspopay/data/model/data/User.kt,4/a/4ae2c3ba80625f20a3b38c126839460134636741
 z
 Japp/src/main/java/com/android/diaspopay/data/model/api/ApiTokenResponse.kt,3/b/3bd9df616c8d54057b1db78b327d35d8efdb3ae5
-
-Oapp/src/main/java/com/android/diaspopay/presentation/viewModel/UserViewModel.kt,d/d/dd8fe08f59902635c61b38e9ea70105e07bcb011

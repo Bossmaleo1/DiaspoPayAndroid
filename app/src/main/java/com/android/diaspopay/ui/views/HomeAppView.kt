@@ -13,8 +13,8 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -46,7 +46,9 @@ fun HomeApp(navController: NavHostController) {
             ),
             exit = slideOutVertically() + shrinkVertically() + fadeOut()
         ) {
-            SmallTopAppBar(
+            /* Handle settings! */
+            /* Handle edit! *//* Handle edit! *//* Handle edit! *//* Handle edit! *//* Handle edit! *///we create our Dropdown Menu Item
+            TopAppBar(title = {},
                 navigationIcon = {
                     Row(modifier = Modifier.padding(10.dp)) {
                         Icon(
@@ -59,8 +61,18 @@ fun HomeApp(navController: NavHostController) {
                         )
                     }
                 },
-                actions = {
+                actions =  {
                     var expanded by remember { mutableStateOf(false) }
+
+                    IconButton(onClick = { /* doSomething() */ }) {
+                        //We add our badges
+                        BadgedBox(badge = { Badge { Text("8") } }) {
+                            Icon(
+                                imageVector = Icons.Outlined.Notifications,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    }
 
                     IconButton(onClick = {
                         expanded = true
@@ -169,10 +181,7 @@ fun HomeApp(navController: NavHostController) {
                                 )
                             })
                     }
-
-                },
-                scrollBehavior = scrollBehavior,
-                title = {}
+                }, scrollBehavior = scrollBehavior
             )
         }
     },
