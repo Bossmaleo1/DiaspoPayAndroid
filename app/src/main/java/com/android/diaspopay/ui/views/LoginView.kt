@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
@@ -19,8 +18,6 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -40,7 +37,7 @@ import com.android.diaspopay.data.model.data.User
 import com.android.diaspopay.data.model.dataRoom.TokenRoom
 import com.android.diaspopay.data.model.dataRoom.UserRoom
 import com.android.diaspopay.data.util.Resource
-import com.android.diaspopay.presentation.viewModel.UserViewModel
+import com.android.diaspopay.presentation.viewModel.user.UserViewModel
 import com.android.diaspopay.ui.views.model.Route
 
 @Composable
@@ -79,7 +76,7 @@ fun Login(navController: NavHostController, userViewModel: UserViewModel, contex
                         Row() {
                             CircularProgressIndicator()
                             Row(Modifier.padding(10.dp)) {
-                                Text(text = stringResource(R.string.app_name))
+                                Text(text = stringResource(R.string.wait))
                             }
                         }
 

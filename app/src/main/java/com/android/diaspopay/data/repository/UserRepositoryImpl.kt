@@ -45,6 +45,10 @@ class UserRepositoryImpl(
         userLocalDataSource.deleteUserTable()
     }
 
+    override suspend fun deleteTokenTable() {
+        userLocalDataSource.deleteTokenTable()
+    }
+
     override fun getSavedUser(userToken: String): Flow<UserRoom> {
         return userLocalDataSource.getSavedUser(userToken)
     }

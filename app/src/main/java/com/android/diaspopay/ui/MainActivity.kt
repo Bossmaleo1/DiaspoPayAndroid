@@ -9,7 +9,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.LifecycleOwner
@@ -18,8 +17,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.android.diaspopay.presentation.viewModel.UserViewModel
-import com.android.diaspopay.presentation.viewModel.UserViewModelFactory
+import com.android.diaspopay.presentation.viewModel.drop.DropViewModel
+import com.android.diaspopay.presentation.viewModel.drop.DropViewModelFactory
+import com.android.diaspopay.presentation.viewModel.user.UserViewModel
+import com.android.diaspopay.presentation.viewModel.user.UserViewModelFactory
 import com.android.diaspopay.ui.theme.DiaspoPayTheme
 import com.android.diaspopay.ui.views.HomeApp
 import kotlinx.coroutines.CoroutineScope
@@ -40,7 +41,10 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
     @Inject
     lateinit var userFactory: UserViewModelFactory
+    @Inject
+    lateinit var dropFactory: DropViewModelFactory
     private lateinit var userViewModel: UserViewModel //we call our login viewModel
+    private lateinit var dropViewModel: DropViewModel
     var token: String? = null
 
     @SuppressLint("CoroutineCreationDuringComposition")
@@ -76,6 +80,7 @@ class MainActivity : ComponentActivity() {
 
     private fun initViewModel() {
         userViewModel = ViewModelProvider(this, userFactory)[UserViewModel::class.java]
+        dropViewModel = ViewModelProvider(this, dropFactory)[DropViewModel::class.java]
     }
 
     @Composable
@@ -96,7 +101,7 @@ class MainActivity : ComponentActivity() {
 
             composable(route = Route.homeView) {
                 RequesReadContactPermission()
-                HomeApp(navController)
+                HomeApp(navController,dropViewModel)
             }
 
             composable(route = Route.searchView) {

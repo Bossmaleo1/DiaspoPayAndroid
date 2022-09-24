@@ -36,4 +36,8 @@ class UserLocalDataSourceImpl(
     override suspend fun deleteUserTable() {
         userDAO.deleteTableUser()
     }
+
+    override suspend fun deleteTokenTable() {
+        userDAO.deleteTableToken()
+    }
 }

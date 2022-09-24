@@ -1,4 +1,4 @@
-package com.android.diaspopay.presentation.viewModel
+package com.android.diaspopay.presentation.viewModel.user
 
 import android.app.Application
 import android.content.Context

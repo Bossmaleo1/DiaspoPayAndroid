@@ -19,12 +19,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.android.diaspopay.R
+import com.android.diaspopay.presentation.viewModel.drop.DropViewModel
 import com.android.diaspopay.ui.views.bottomnavigationviews.HistoryView
 import com.android.diaspopay.ui.views.model.Route
 
 @Composable
 @ExperimentalMaterial3Api
-fun HomeApp(navController: NavHostController) {
+fun HomeApp(navController: NavHostController, dropViewModel: DropViewModel) {
     val listState = rememberLazyListState()
     var fabExtended by rememberSaveable { mutableStateOf(true) }
     val density = LocalDensity.current
@@ -172,7 +173,8 @@ fun HomeApp(navController: NavHostController) {
                             },
                             onClick = {
                                 /* Handle settings! */
-
+                                dropViewModel.deleteAll()
+                                navController.navigate(Route.loginView)
                             },
                             leadingIcon = {
                                 Icon(
@@ -220,4 +222,8 @@ fun HomeApp(navController: NavHostController) {
         }
     }
 
+}
+
+fun logOut(dropViewModel: DropViewModel) {
+    dropViewModel.deleteAll()
 }
