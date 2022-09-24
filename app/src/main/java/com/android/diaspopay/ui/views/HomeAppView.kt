@@ -79,7 +79,7 @@ fun HomeApp(navController: NavHostController) {
                         DropdownMenuItem(
                             text = {
                                 Text(
-                                    text = "Comptes",
+                                    text = stringResource(id = R.string.account),
                                     maxLines = 1
                                 )
                             },
@@ -94,7 +94,7 @@ fun HomeApp(navController: NavHostController) {
                         DropdownMenuItem(
                             text = {
                                 Text(
-                                    text = "Paramètres",
+                                    text = stringResource(id = R.string.settings),
                                     maxLines = 1
                                 )
                             },
@@ -109,7 +109,7 @@ fun HomeApp(navController: NavHostController) {
                         DropdownMenuItem(
                             text = {
                                 Text(
-                                    text = "Nous contacter",
+                                    text = stringResource(id = R.string.contact_us),
                                     maxLines = 1
                                 )
                             },
@@ -125,7 +125,7 @@ fun HomeApp(navController: NavHostController) {
                         DropdownMenuItem(
                             text = {
                                 Text(
-                                    text = "Inviter vos amis",
+                                    text = stringResource(id = R.string.guest_friend),
                                     maxLines = 1
                                 )
                             },
@@ -140,7 +140,7 @@ fun HomeApp(navController: NavHostController) {
                         DropdownMenuItem(
                             text = {
                                 Text(
-                                    text = "A propos",
+                                    text = stringResource(id = R.string.about),
                                     maxLines = 1
                                 )
                             },

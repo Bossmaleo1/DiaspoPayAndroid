@@ -15,4 +15,9 @@
     <string name="resend">Отправить</string>
     <string name="details">Подробности</string>
     <string name="paid">Оплаченный</string>
+    <string name="about">О</string>
+    <string name="settings">Настройки</string>
+    <string name="account">Счет</string>
+    <string name="contact_us">Свяжитесь с нами</string>
+    <string name="guest_friend">Пригласить своих друзей</string>
 </resources>

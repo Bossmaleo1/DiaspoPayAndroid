@@ -15,4 +15,9 @@
     <string name="resend">Reenviar</string>
     <string name="details">Detalhes</string>
     <string name="paid">Pago</string>
+    <string name="about">Sobre</string>
+    <string name="settings">Definições</string>
+    <string name="account">Conta</string>
+    <string name="contact_us">Contate-Nos</string>
+    <string name="guest_friend">Convide seus amigos</string>
 </resources>
