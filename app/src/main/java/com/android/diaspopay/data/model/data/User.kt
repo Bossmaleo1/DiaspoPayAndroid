@@ -23,4 +23,6 @@ data class User(
     val sex: String?,
     @SerializedName("roles")
     val roles: List<String>,
+    @SerializedName("meansPayment")
+    val meansPayments: List<MeansPayment>
 )

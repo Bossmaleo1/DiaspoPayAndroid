@@ -22,6 +22,7 @@ import com.android.diaspopay.R
 import com.android.diaspopay.presentation.viewModel.drop.DropViewModel
 import com.android.diaspopay.ui.views.bottomnavigationviews.HistoryView
 import com.android.diaspopay.ui.views.model.Route
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @Composable
 @ExperimentalMaterial3Api
@@ -215,15 +216,13 @@ fun HomeApp(navController: NavHostController, dropViewModel: DropViewModel) {
             )
 
         }) { innerPadding ->
-        LazyColumn(contentPadding = innerPadding, state = listState) {
-            items(count = 2000) {
-                HistoryView()
+            var isRefreshing by remember { mutableStateOf(false) }
+            val swipeRefreshState = rememberSwipeRefreshState(isRefreshing)
+            LazyColumn(contentPadding = innerPadding, state = listState) {
+                items(count = 2000) {
+                    HistoryView()
+                }
             }
-        }
     }
 
-}
-
-fun logOut(dropViewModel: DropViewModel) {
-    dropViewModel.deleteAll()
 }

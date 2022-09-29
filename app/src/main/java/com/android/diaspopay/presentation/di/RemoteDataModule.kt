@@ -2,7 +2,7 @@ package com.android.diaspopay.presentation.di
 
 import com.android.diaspopay.data.api.service.UserAPIService
 import com.android.diaspopay.data.repository.dataSource.user.UserRemoteDataSource
-import com.android.diaspopay.data.repository.dataSourceImpl.UserRemoteDataSourceImpl
+import com.android.diaspopay.data.repository.dataSourceImpl.user.UserRemoteDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

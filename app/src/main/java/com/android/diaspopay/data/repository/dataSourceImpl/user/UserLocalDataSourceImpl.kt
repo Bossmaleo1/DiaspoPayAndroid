@@ -1,4 +1,4 @@
-package com.android.diaspopay.data.repository.dataSourceImpl
+package com.android.diaspopay.data.repository.dataSourceImpl.user
 
 import com.android.diaspopay.data.db.dao.UserDAO
 import com.android.diaspopay.data.model.dataRoom.TokenRoom
