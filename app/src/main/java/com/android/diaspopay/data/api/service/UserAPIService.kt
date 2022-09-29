@@ -1,6 +1,6 @@
 package com.android.diaspopay.data.api.service
 
-import com.android.diaspopay.data.model.api.ApiLogin
+import com.android.diaspopay.data.model.api.ApiLoginResponse
 import com.android.diaspopay.data.model.api.ApiTokenResponse
 import com.android.diaspopay.data.model.api.ApiUserResponse
 import retrofit2.Response
@@ -9,7 +9,7 @@ import retrofit2.http.*
 interface UserAPIService {
     @POST("/api/login_check")
     suspend fun getToken(
-        @Body apiLogin: ApiLogin
+        @Body apiLogin: ApiLoginResponse
     ): Response<ApiTokenResponse>
 
     @GET("/api/users")

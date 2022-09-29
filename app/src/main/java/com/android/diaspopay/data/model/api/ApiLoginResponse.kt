@@ -1,5 +1,5 @@
 package com.android.diaspopay.data.model.api
 
-data class ApiLogin (
+data class ApiLoginResponse (
     val username: String,
     val password: String)
