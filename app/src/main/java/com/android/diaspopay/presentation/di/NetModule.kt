@@ -1,6 +1,8 @@
 package com.android.diaspopay.presentation.di
 
 import com.android.diaspopay.BuildConfig
+import com.android.diaspopay.data.api.service.MeansPaymentAPIService
+import com.android.diaspopay.data.api.service.TransferAPIService
 import com.android.diaspopay.data.api.service.UserAPIService
 import dagger.Module
 import dagger.Provides
@@ -41,6 +43,18 @@ class NetModule {
     @Provides
     fun provideUserAPIService(retrofit: Retrofit): UserAPIService {
         return retrofit.create(UserAPIService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMeansPaymentAPIService(retrofit: Retrofit): MeansPaymentAPIService {
+        return retrofit.create(MeansPaymentAPIService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideTransferAPIService(retrofit: Retrofit): TransferAPIService {
+        return retrofit.create(TransferAPIService::class.java)
     }
 
 }

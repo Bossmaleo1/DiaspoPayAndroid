@@ -3,6 +3,8 @@ package com.android.diaspopay.presentation.di
 import android.app.Application
 import androidx.room.Room
 import com.android.diaspopay.data.db.dao.DiaspoPayDataBase
+import com.android.diaspopay.data.db.dao.MeansPaymentDAO
+import com.android.diaspopay.data.db.dao.TransferDAO
 import com.android.diaspopay.data.db.dao.UserDAO
 import dagger.Module
 import dagger.Provides
@@ -27,4 +29,15 @@ class DataBaseModule {
         return diaspoPayDatabase.getUserDAO()
     }
 
+    @Singleton
+    @Provides
+    fun provideMeansPaymentDao(diaspoPayDatabase: DiaspoPayDataBase): MeansPaymentDAO {
+        return diaspoPayDatabase.getMeansPaymentDAO()
+    }
+
+    @Singleton
+    @Provides
+    fun provideTransferDAO(diaspoPayDatabase: DiaspoPayDataBase): TransferDAO {
+        return diaspoPayDatabase.getTransferDAO()
+    }
 }
