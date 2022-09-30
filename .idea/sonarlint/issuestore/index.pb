@@ -47,8 +47,6 @@ Uapp/src/main/java/com/android/diaspopay/domain/usecase/user/DeleteTableUserUseC
 Lapp/src/main/java/com/android/diaspopay/presentation/di/UserUseCaseModule.kt,2/3/235b63f42463e39b65f7b1e2b8cd1220dfaf3cba
 x
 Happ/src/main/java/com/android/diaspopay/presentation/di/FactoryModule.kt,0/e/0ec6af7642298f715926d6e5ed7fd942e174ada2
-z
-Japp/src/main/java/com/android/diaspopay/presentation/di/LocalDataModule.kt,d/1/d155247abc61e182e128710b388d9ad5856f6bee
 ‹
 [app/src/main/java/com/android/diaspopay/presentation/viewModel/drop/DropViewModelFactory.kt,0/1/010049a4e02b15fed406ede25b4955bc8a3f1e3c
 „
