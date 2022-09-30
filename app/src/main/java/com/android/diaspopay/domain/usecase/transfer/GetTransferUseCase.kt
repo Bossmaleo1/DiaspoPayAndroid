@@ -6,8 +6,8 @@ import com.android.diaspopay.domain.repository.TransferRepository
 
 class GetTransferUseCase(private val transferRepository: TransferRepository) {
 
-    suspend fun execute(sender: String, page: Int): Resource<ApiTransferResponse> {
-        return  transferRepository.getTransfers(sender,page)
+    suspend fun execute(sender: String, page: Int,pagination: Boolean,token: String): Resource<ApiTransferResponse> {
+        return  transferRepository.getTransfers(sender,page,pagination,token)
     }
 
 }

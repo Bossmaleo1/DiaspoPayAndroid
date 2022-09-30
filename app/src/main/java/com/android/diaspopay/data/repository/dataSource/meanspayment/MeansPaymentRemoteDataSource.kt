@@ -4,5 +4,5 @@ import com.android.diaspopay.data.model.api.ApiMeansPaymentResponse
 import retrofit2.Response
 
 interface MeansPaymentRemoteDataSource {
-    suspend fun getMeansPayment(): Response<ApiMeansPaymentResponse>
+    suspend fun getMeansPayment(user: String, pagination: Boolean,token: String): Response<ApiMeansPaymentResponse>
 }

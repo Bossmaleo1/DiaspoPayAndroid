@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(
     tableName = "transfer_data_table",
@@ -11,7 +12,7 @@ import androidx.room.PrimaryKey
         Index(value = ["transfer_id"], unique = true)
     ],
 )
-data class TransferRoom (
+data class TransferRoom(
     @ColumnInfo(name = "transfer_id")
     @PrimaryKey(autoGenerate = false)
     var id: Int?,
