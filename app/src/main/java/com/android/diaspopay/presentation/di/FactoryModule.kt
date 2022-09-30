@@ -1,8 +1,13 @@
 package com.android.diaspopay.presentation.di
 
 import android.app.Application
+import com.android.diaspopay.domain.repository.MeansPaymentRepository
+import com.android.diaspopay.domain.usecase.meanspayment.*
+import com.android.diaspopay.domain.usecase.transfer.*
 import com.android.diaspopay.domain.usecase.user.*
 import com.android.diaspopay.presentation.viewModel.drop.DropViewModelFactory
+import com.android.diaspopay.presentation.viewModel.meansPayment.MeansPaymentViewModelFactory
+import com.android.diaspopay.presentation.viewModel.transfer.TransferViewModelFactory
 import com.android.diaspopay.presentation.viewModel.user.UserViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -49,6 +54,52 @@ class FactoryModule {
             application,
             deleteTableUserUseCase,
             deleteTableTokenUseCase
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideTransferViewModelFactory(
+        application: Application,
+        getTransferUseCase: GetTransferUseCase,
+        getSavedTransferUseCase: GetSavedTransferUseCase,
+       saveTransferUseCase: SaveTransferUseCase,
+        updateSavedTransferUseCase: UpdateSavedTransferUseCase,
+        deleteSavedTransferUseCase: DeleteSavedTransferUseCase,
+       deleteTableTransferUseCase: DeleteTableTransferUseCase
+    ): TransferViewModelFactory {
+        return TransferViewModelFactory(
+            application,
+            getTransferUseCase,
+            getSavedTransferUseCase,
+            saveTransferUseCase,
+            updateSavedTransferUseCase,
+            deleteSavedTransferUseCase,
+            deleteTableTransferUseCase
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideMeansPaymentViewModelFactory(
+          application: Application,
+          getMeansPaymentUseCase: GetMeansPaymentUseCase,
+          getSavedMeansPaymentUseCase: GetSavedMeansPaymentUseCase,
+          getSearchMeansPaymentUseCase: GetSearchMeansPaymentUseCase,
+          savedMeansPaymentUseCase: SaveMeansPaymentUseCase,
+          updateSavedMeansPaymentUseCase: UpdateSavedMeansPaymentUseCase,
+          deleteSavedMeansPaymentUseCase: DeleteSavedMeansPaymentUseCase,
+          deleteTableMeansPayment: DeleteTableMeansPayment
+    ): MeansPaymentViewModelFactory {
+        return MeansPaymentViewModelFactory(
+            application,
+            getMeansPaymentUseCase,
+            getSavedMeansPaymentUseCase,
+            getSearchMeansPaymentUseCase,
+            savedMeansPaymentUseCase,
+            updateSavedMeansPaymentUseCase,
+            deleteSavedMeansPaymentUseCase,
+            deleteTableMeansPayment
         )
     }
 }

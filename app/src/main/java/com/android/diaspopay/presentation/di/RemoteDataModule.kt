@@ -1,7 +1,10 @@
 package com.android.diaspopay.presentation.di
 
+import com.android.diaspopay.data.api.service.MeansPaymentAPIService
 import com.android.diaspopay.data.api.service.UserAPIService
+import com.android.diaspopay.data.repository.dataSource.meanspayment.MeansPaymentRemoteDataSource
 import com.android.diaspopay.data.repository.dataSource.user.UserRemoteDataSource
+import com.android.diaspopay.data.repository.dataSourceImpl.meanspayment.MeansPaymentRemoteDataSourceImpl
 import com.android.diaspopay.data.repository.dataSourceImpl.user.UserRemoteDataSourceImpl
 import dagger.Module
 import dagger.Provides
@@ -19,5 +22,13 @@ class RemoteDataModule {
         userAPIService: UserAPIService
     ): UserRemoteDataSource {
         return UserRemoteDataSourceImpl(userAPIService)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMeansPaymentRemoteDataSource(
+        meansPaymentAPIService: MeansPaymentAPIService
+    ): MeansPaymentRemoteDataSource {
+        return MeansPaymentRemoteDataSourceImpl(meansPaymentAPIService)
     }
 }

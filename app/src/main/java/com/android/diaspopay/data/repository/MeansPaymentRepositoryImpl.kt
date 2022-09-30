@@ -1,7 +1,6 @@
 package com.android.diaspopay.data.repository
 
 import com.android.diaspopay.data.model.api.ApiMeansPaymentResponse
-import com.android.diaspopay.data.model.api.ApiTransferResponse
 import com.android.diaspopay.data.model.dataRoom.MeansPaymentRoom
 import com.android.diaspopay.data.repository.dataSource.meanspayment.MeansPaymentLocalDataSource
 import com.android.diaspopay.data.repository.dataSource.meanspayment.MeansPaymentRemoteDataSource
@@ -15,8 +14,13 @@ class MeansPaymentRepositoryImpl(
     private val meansPaymentRemoteDataSource: MeansPaymentRemoteDataSource
 ): MeansPaymentRepository {
 
-    override suspend fun getMeansPayments(user: String, pagination: Boolean,token: String): Resource<ApiMeansPaymentResponse> {
-        return responseToResourceMeansPayment(meansPaymentRemoteDataSource.getMeansPayment(user,pagination,token))
+    override suspend fun getMeansPayments(
+        user: String,
+        page: Int,
+        pagination: Boolean,
+        token: String
+    ): Resource<ApiMeansPaymentResponse> {
+        return responseToResourceMeansPayment(meansPaymentRemoteDataSource.getMeansPayment(user,page,pagination,token))
     }
 
     override fun getSavedMeansPayment(): Flow<List<MeansPaymentRoom>> {

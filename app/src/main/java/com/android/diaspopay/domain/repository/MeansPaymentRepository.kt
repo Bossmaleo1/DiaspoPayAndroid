@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface MeansPaymentRepository {
 
-    suspend fun getMeansPayments(user: String, pagination: Boolean,token: String): Resource<ApiMeansPaymentResponse>
+    suspend fun getMeansPayments(user: String, page: Int, pagination: Boolean,token: String): Resource<ApiMeansPaymentResponse>
 
     fun getSavedMeansPayment(): Flow<List<MeansPaymentRoom>>
 
