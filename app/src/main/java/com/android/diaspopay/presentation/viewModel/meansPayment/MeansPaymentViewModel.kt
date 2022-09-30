@@ -1,4 +1,4 @@
-package com.android.diaspopay.presentation.viewModel.transfer
+package com.android.diaspopay.presentation.viewModel.meansPayment
 
 import android.app.Application
 import android.content.Context
@@ -13,78 +13,63 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.android.diaspopay.data.model.data.MeansPayment
 import com.android.diaspopay.data.model.data.Transfer
-import com.android.diaspopay.data.model.dataRoom.TransferRoom
-import com.android.diaspopay.domain.usecase.transfer.*
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.android.diaspopay.data.model.dataRoom.MeansPaymentRoom
+import com.android.diaspopay.domain.usecase.meanspayment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class TransferViewModel @Inject constructor(
+class MeansPaymentViewModel(
     private val app: Application,
-    private val getTransferUseCase: GetTransferUseCase,
-    private val getSavedTransferUseCase: GetSavedTransferUseCase,
-    private val saveTransferUseCase: SaveTransferUseCase,
-    private val updateSavedTransferUseCase: UpdateSavedTransferUseCase,
-    private val deleteSavedTransferUseCase: DeleteSavedTransferUseCase,
-    private val deleteTableTransferUseCase: DeleteTableTransferUseCase
-    ): AndroidViewModel(app) {
+    private val getMeansPaymentUseCase: GetMeansPaymentUseCase,
+    private val getSavedMeansPaymentUseCase: GetSavedMeansPaymentUseCase,
+    private val getSearchMeansPaymentUseCase: GetSearchMeansPaymentUseCase,
+    private val savedMeansPaymentUseCase: SaveMeansPaymentUseCase,
+    private val updateSavedMeansPaymentUseCase: UpdateSavedMeansPaymentUseCase,
+    private val deleteSavedMeansPaymentUseCase: DeleteSavedMeansPaymentUseCase,
+    private val deleteTableMeansPayment: DeleteTableMeansPayment
+): AndroidViewModel(app) {
 
-    val transferStateRemoteList = mutableStateListOf<Transfer>()
-    private val transferList: MutableLiveData<List<Transfer>> = MutableLiveData()
+    val meansPaymentStateRemoteList = mutableStateListOf<Transfer>()
+    private val meansPaymentList: MutableLiveData<List<Transfer>> = MutableLiveData()
     val currentPage : MutableState<Int> = mutableStateOf(1)
 
-    fun getTransfer(sender: String,page: Int,pagination: Boolean,token: String) {
+    fun getMeansPayment(user: String, pagination: Boolean,token: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (isNetworkAvailable(app)) {
-                    val apiResult = getTransferUseCase.execute(sender, page,pagination = true, token = "Bearer $token")
-                    apiResult.data?.let {
-                        transferList.postValue(it.transfers)
-                        transferStateRemoteList.addAll(it.transfers)
-                        currentPage.value = page
-                    }
+                    val apiResult = getMeansPaymentUseCase.execute(user,pagination,token)
                 } else {
                     Toast.makeText(app.applicationContext,"Internet is not available", Toast.LENGTH_LONG).show()
                 }
-            } catch (e: Exception) {
-                Toast.makeText(app,e.message.toString(),Toast.LENGTH_LONG).show()
+            }catch (e: Exception) {
+                Toast.makeText(app,e.message.toString(), Toast.LENGTH_LONG).show()
             }
-
         }
     }
 
-    fun saveTransferRoom(transfer: Transfer) = viewModelScope.launch {
-        saveTransferUseCase.execute(
-            TransferRoom(
-                transfer.id,
-                transfer.trackingNumber,
-                transfer.published.toString(),
-                transfer.amount,
-                transfer.fee,
-                transfer.discount,
-                transfer.exchangeRate,
-                transfer.sendingCountryIsoCode,
-                transfer.transferMotif,
-                transfer.beneficiary,
-                transfer.sender,
-                transfer.status,
-                transfer.details
-            )
-        )
-    }
-
-    fun getAllTransfer() = liveData {
-        getSavedTransferUseCase.execute().collect {
+    fun getAllMeansPayments() = liveData {
+        getSavedMeansPaymentUseCase.execute().collect {
             emit(it)
         }
     }
 
-    fun initTransfer() {
-        transferStateRemoteList.removeAll(transferStateRemoteList)
+    fun saveMeansPaymentRoom(meansPayment: MeansPayment) = viewModelScope.launch {
+        savedMeansPaymentUseCase.execute(
+            MeansPaymentRoom(
+                meansPayment.id,
+                meansPayment.name,
+                meansPayment.number,
+                meansPayment.date.toString(),
+                meansPayment.cvv.toString()
+            )
+        )
+    }
+
+    fun initMeansPayment() {
+        meansPaymentStateRemoteList.removeAll(meansPaymentStateRemoteList)
     }
 
     private fun isNetworkAvailable(context: Context?): Boolean {

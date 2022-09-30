@@ -5,7 +5,7 @@ import java.util.*
 
 data class MeansPayment (
     @SerializedName("id")
-    var id: Int?,
+    var id: Int,
     @SerializedName("name")
     var name: String,
     @SerializedName("number")

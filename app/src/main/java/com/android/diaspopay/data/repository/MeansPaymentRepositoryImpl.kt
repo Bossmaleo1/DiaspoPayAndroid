@@ -15,8 +15,8 @@ class MeansPaymentRepositoryImpl(
     private val meansPaymentRemoteDataSource: MeansPaymentRemoteDataSource
 ): MeansPaymentRepository {
 
-    override suspend fun getMeansPayments(): Resource<ApiMeansPaymentResponse> {
-        return responseToResourceMeansPayment(meansPaymentRemoteDataSource.getMeansPayment())
+    override suspend fun getMeansPayments(user: String, pagination: Boolean,token: String): Resource<ApiMeansPaymentResponse> {
+        return responseToResourceMeansPayment(meansPaymentRemoteDataSource.getMeansPayment(user,pagination,token))
     }
 
     override fun getSavedMeansPayment(): Flow<List<MeansPaymentRoom>> {
