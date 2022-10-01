@@ -36,11 +36,11 @@ class MeansPaymentViewModel(
     private val meansPaymentList: MutableLiveData<List<Transfer>> = MutableLiveData()
     val currentPage : MutableState<Int> = mutableStateOf(1)
 
-    fun getMeansPayment(user: String, pagination: Boolean,token: String) {
+    fun getMeansPayment(user: String, page: Int, pagination: Boolean,token: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (isNetworkAvailable(app)) {
-                    val apiResult = getMeansPaymentUseCase.execute(user,pagination,token)
+                    val apiResult = getMeansPaymentUseCase.execute(user,page,pagination,token)
                 } else {
                     Toast.makeText(app.applicationContext,"Internet is not available", Toast.LENGTH_LONG).show()
                 }
