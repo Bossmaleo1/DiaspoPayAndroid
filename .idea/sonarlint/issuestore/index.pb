@@ -9,8 +9,6 @@ w
 Gapp/src/main/java/com/android/diaspopay/ui/views/contact/ContactItem.kt,6/1/61c1682f2054aee04b5b739ea8f67a2254772a94
 r
 Bapp/src/main/java/com/android/diaspopay/presentation/util/Event.kt,5/2/520f691ee969aec6c1efac10bb75f02330c2fc17
-{
-Kapp/src/main/java/com/android/diaspopay/ui/views/shimmer/TransferShimmer.kt,1/4/1447a30759ee38c459c8721e52c47b97494c8cee
 A
 gradle.properties,2/a/2afbb999f001938c88fa43fc2ef52abf0f8213e4
 ?

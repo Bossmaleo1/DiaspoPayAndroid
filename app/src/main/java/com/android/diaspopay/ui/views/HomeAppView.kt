@@ -1,6 +1,8 @@
 package com.android.diaspopay.ui.views
 
+import android.util.Log
 import androidx.compose.animation.*
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,19 +12,24 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
 import com.android.diaspopay.R
 import com.android.diaspopay.presentation.viewModel.drop.DropViewModel
 import com.android.diaspopay.presentation.viewModel.meansPayment.MeansPaymentViewModel
 import com.android.diaspopay.presentation.viewModel.transfer.TransferViewModel
+import com.android.diaspopay.presentation.viewModel.user.UserViewModel
 import com.android.diaspopay.ui.views.bottomnavigationviews.HistoryView
 import com.android.diaspopay.ui.views.model.Route
+import com.android.diaspopay.ui.views.utils.InfiniteListTransferRemote
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -32,6 +39,7 @@ import kotlinx.coroutines.delay
 @ExperimentalMaterial3Api
 fun HomeApp(
     navController: NavHostController,
+    userViewModel: UserViewModel,
     dropViewModel: DropViewModel,
     meansPaymentViewModel: MeansPaymentViewModel,
     transferViewModel: TransferViewModel
@@ -43,6 +51,17 @@ fun HomeApp(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     var isRefreshing by remember { mutableStateOf(false) }
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing)
+
+
+    userViewModel.getSavedToken()
+    val token by userViewModel.tokenValue.observeAsState()
+    val user by userViewModel.userValue.observeAsState()
+
+    if (!token?.token.isNullOrBlank()) {
+        userViewModel.getSavedUserByToken(token?.token!!)
+            .observe(LocalContext.current as LifecycleOwner) {}
+
+    }
 
     Scaffold(topBar = {
         AnimatedVisibility(
@@ -227,15 +246,22 @@ fun HomeApp(
             )
 
         }) { innerPadding ->
-            var isRefreshing by remember { mutableStateOf(false) }
-            val swipeRefreshState = rememberSwipeRefreshState(isRefreshing)
+
+        if (transferViewModel.currentPage.value == 1 && !isRefreshing) {
+            transferViewModel.getTransfer(
+                sender = "/api/users/${user?.id}",
+                transferViewModel.currentPage.value,
+                pagination = true,
+                token?.token!!
+            )
+        }
 
         SwipeRefresh(
             state = swipeRefreshState,
             onRefresh = {
                 isRefreshing = true
-                /*publicMessageViewModel.currentPage.value = 1
-                publicMessageViewModel.initPublicMessage()*/
+                transferViewModel.currentPage.value = 1
+                transferViewModel.initTransfer()
             },
             indicator = { state, trigger ->
                 // publicMessageViewModel.initPublicMessage()
@@ -251,11 +277,22 @@ fun HomeApp(
                 )
             }
         ) {
-            LazyColumn(contentPadding = innerPadding, state = listState) {
+            /*LazyColumn(contentPadding = innerPadding, state = listState) {
                 items(count = 2000) {
-                    HistoryView()
+
                 }
-            }
+            }*/
+            InfiniteListTransferRemote(
+                listState = listState,
+                listItems = remember { transferViewModel.transferStateRemoteList },
+                paddingValues = PaddingValues(
+                    top = innerPadding.calculateTopPadding(),
+                    bottom = innerPadding.calculateBottomPadding()
+                ),
+                transferViewModel = transferViewModel,
+                sender = "/api/users/${user?.id}",
+                token = token?.token!!
+            )
         }
         // cette instruction permet de réactivé le reflesh
         LaunchedEffect(isRefreshing) {

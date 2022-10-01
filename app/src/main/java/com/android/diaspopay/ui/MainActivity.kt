@@ -120,7 +120,13 @@ class MainActivity : ComponentActivity() {
 
             composable(route = Route.homeView) {
                 RequesReadContactPermission()
-                HomeApp(navController,dropViewModel, meansPaymentViewModel, transferViewModel)
+                HomeApp(
+                    navController,
+                    userViewModel,
+                    dropViewModel,
+                    meansPaymentViewModel,
+                    transferViewModel
+                )
             }
 
             composable(route = Route.searchView) {
