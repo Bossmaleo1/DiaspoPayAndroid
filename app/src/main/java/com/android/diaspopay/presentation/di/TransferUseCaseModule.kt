@@ -52,5 +52,12 @@ class TransferUseCaseModule {
         return DeleteSavedTransferUseCase(transferRepository)
     }
 
+    @Singleton
+    @Provides
+    fun provideUpdateSavedTransferUseCase(
+        transferRepository: TransferRepository
+    ): UpdateSavedTransferUseCase {
+        return UpdateSavedTransferUseCase(transferRepository)
+    }
 
 }

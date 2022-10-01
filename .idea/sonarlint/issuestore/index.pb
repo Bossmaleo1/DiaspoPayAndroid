@@ -93,8 +93,6 @@ bapp/src/main/java/com/android/diaspopay/domain/usecase/meanspayment/GetSavedMea
 ]app/src/main/java/com/android/diaspopay/domain/usecase/transfer/DeleteSavedTransferUseCase.kt,b/a/ba1682f2d56b05ce201786d778cd9864e731772c
 ï
 eapp/src/main/java/com/android/diaspopay/domain/usecase/meanspayment/UpdateSavedMeansPaymentUseCase.kt,c/3/c35597504e70184f05c2589d539544793e055e3a
-ç
-]app/src/main/java/com/android/diaspopay/domain/usecase/transfer/UpdateSavedTransferUseCase.kt,5/a/5a88f079c247b6d443c6af51b285a176096b2282
 ä
 Zapp/src/main/java/com/android/diaspopay/domain/usecase/transfer/GetSavedTransferUseCase.kt,0/9/09e819502abdf24b2c676a324186c8f856788834
 ç
