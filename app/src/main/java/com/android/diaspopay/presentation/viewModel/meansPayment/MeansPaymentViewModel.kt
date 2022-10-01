@@ -32,15 +32,20 @@ class MeansPaymentViewModel(
     private val deleteTableMeansPayment: DeleteTableMeansPayment
 ): AndroidViewModel(app) {
 
-    val meansPaymentStateRemoteList = mutableStateListOf<Transfer>()
-    private val meansPaymentList: MutableLiveData<List<Transfer>> = MutableLiveData()
-    val currentPage : MutableState<Int> = mutableStateOf(1)
+    private val meansPaymentStateRemoteList = mutableStateListOf<MeansPayment>()
+    private val meansPaymentList: MutableLiveData<List<MeansPayment>> = MutableLiveData()
+    private val currentPage : MutableState<Int> = mutableStateOf(1)
 
     fun getMeansPayment(user: String, page: Int, pagination: Boolean,token: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (isNetworkAvailable(app)) {
                     val apiResult = getMeansPaymentUseCase.execute(user,page,pagination,token)
+                    apiResult.data?.let {
+                        meansPaymentList.postValue(it.meansPaymentList)
+                        meansPaymentStateRemoteList.addAll(it.meansPaymentList)
+                        currentPage.value = page
+                    }
                 } else {
                     Toast.makeText(app.applicationContext,"Internet is not available", Toast.LENGTH_LONG).show()
                 }
