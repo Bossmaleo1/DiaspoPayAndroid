@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 
 data class ApiMeansPaymentResponse(
     @SerializedName("hydra:member")
-    val transfers: List<MeansPayment>
+    val meansPaymentList: List<MeansPayment>
 )

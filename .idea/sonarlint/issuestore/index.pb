@@ -59,8 +59,6 @@ Japp/src/main/java/com/android/diaspopay/data/model/api/ApiTokenResponse.kt,3/b
 ^app/src/main/java/com/android/diaspopay/data/repository/dataSource/user/UserLocalDataSource.kt,9/c/9caf55482fb1965325891925674ec32df106aa7a
 z
 Japp/src/main/java/com/android/diaspopay/data/model/api/ApiLoginResponse.kt,4/f/4f5ba95825dd5fa0885c51cce449b8f094c593db
-Å
-Qapp/src/main/java/com/android/diaspopay/data/model/api/ApiMeansPaymentResponse.kt,a/b/abd0a00e0d0704aa42ccff5f7504d79ca5d68212
 ñ
 fapp/src/main/java/com/android/diaspopay/data/repository/dataSourceImpl/user/UserLocalDataSourceImpl.kt,c/7/c7918ce2182f5297a259e3380a33d17e41b6189e
 ó
