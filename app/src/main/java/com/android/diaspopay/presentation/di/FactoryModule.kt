@@ -48,12 +48,16 @@ class FactoryModule {
     fun provideDropViewModelFactory(
         application: Application,
         deleteTableUserUseCase: DeleteTableUserUseCase,
-        deleteTableTokenUseCase: DeleteTableTokenUseCase
+        deleteTableTokenUseCase: DeleteTableTokenUseCase,
+        deleteTableTransferUseCase: DeleteTableTransferUseCase,
+        deleteTableMeansPaymentUseCase: DeleteTableMeansPaymentUseCase,
     ): DropViewModelFactory {
         return DropViewModelFactory(
             application,
             deleteTableUserUseCase,
-            deleteTableTokenUseCase
+            deleteTableTokenUseCase,
+            deleteTableTransferUseCase,
+            deleteTableMeansPaymentUseCase
         )
     }
 
@@ -65,8 +69,7 @@ class FactoryModule {
         getSavedTransferUseCase: GetSavedTransferUseCase,
        saveTransferUseCase: SaveTransferUseCase,
         updateSavedTransferUseCase: UpdateSavedTransferUseCase,
-        deleteSavedTransferUseCase: DeleteSavedTransferUseCase,
-       deleteTableTransferUseCase: DeleteTableTransferUseCase
+        deleteSavedTransferUseCase: DeleteSavedTransferUseCase
     ): TransferViewModelFactory {
         return TransferViewModelFactory(
             application,
@@ -74,8 +77,7 @@ class FactoryModule {
             getSavedTransferUseCase,
             saveTransferUseCase,
             updateSavedTransferUseCase,
-            deleteSavedTransferUseCase,
-            deleteTableTransferUseCase
+            deleteSavedTransferUseCase
         )
     }
 
@@ -88,8 +90,7 @@ class FactoryModule {
           getSearchMeansPaymentUseCase: GetSearchMeansPaymentUseCase,
           savedMeansPaymentUseCase: SaveMeansPaymentUseCase,
           updateSavedMeansPaymentUseCase: UpdateSavedMeansPaymentUseCase,
-          deleteSavedMeansPaymentUseCase: DeleteSavedMeansPaymentUseCase,
-          deleteTableMeansPayment: DeleteTableMeansPayment
+          deleteSavedMeansPaymentUseCase: DeleteSavedMeansPaymentUseCase
     ): MeansPaymentViewModelFactory {
         return MeansPaymentViewModelFactory(
             application,
@@ -98,8 +99,7 @@ class FactoryModule {
             getSearchMeansPaymentUseCase,
             savedMeansPaymentUseCase,
             updateSavedMeansPaymentUseCase,
-            deleteSavedMeansPaymentUseCase,
-            deleteTableMeansPayment
+            deleteSavedMeansPaymentUseCase
         )
     }
 }

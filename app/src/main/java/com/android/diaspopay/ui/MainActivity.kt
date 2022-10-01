@@ -6,11 +6,18 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideIn
+import androidx.compose.animation.slideOut
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.IntOffset
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
@@ -19,6 +26,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.android.diaspopay.presentation.viewModel.drop.DropViewModel
 import com.android.diaspopay.presentation.viewModel.drop.DropViewModelFactory
+import com.android.diaspopay.presentation.viewModel.meansPayment.MeansPaymentViewModel
+import com.android.diaspopay.presentation.viewModel.meansPayment.MeansPaymentViewModelFactory
+import com.android.diaspopay.presentation.viewModel.transfer.TransferViewModel
+import com.android.diaspopay.presentation.viewModel.transfer.TransferViewModelFactory
 import com.android.diaspopay.presentation.viewModel.user.UserViewModel
 import com.android.diaspopay.presentation.viewModel.user.UserViewModelFactory
 import com.android.diaspopay.ui.theme.DiaspoPayTheme
@@ -43,6 +54,13 @@ class MainActivity : ComponentActivity() {
     lateinit var userFactory: UserViewModelFactory
     @Inject
     lateinit var dropFactory: DropViewModelFactory
+    @Inject
+    lateinit var meansPaymentFactory: MeansPaymentViewModelFactory
+    @Inject
+    lateinit var transferFactory: TransferViewModelFactory
+
+    private lateinit var meansPaymentViewModel: MeansPaymentViewModel
+    private lateinit var transferViewModel: TransferViewModel
     private lateinit var userViewModel: UserViewModel //we call our login viewModel
     private lateinit var dropViewModel: DropViewModel
     var token: String? = null
@@ -81,12 +99,13 @@ class MainActivity : ComponentActivity() {
     private fun initViewModel() {
         userViewModel = ViewModelProvider(this, userFactory)[UserViewModel::class.java]
         dropViewModel = ViewModelProvider(this, dropFactory)[DropViewModel::class.java]
+        transferViewModel = ViewModelProvider(this,transferFactory)[TransferViewModel::class.java]
+        meansPaymentViewModel = ViewModelProvider(this,meansPaymentFactory)[MeansPaymentViewModel::class.java]
     }
 
     @Composable
     @ExperimentalMaterial3Api
     fun MainView(navController: NavHostController, context: Any) {
-        val activity = (LocalContext.current as? Activity)
         //We call our init view model method
         this.initViewModel()
         //This LiveData help us to change our bottom navigation view
@@ -101,7 +120,7 @@ class MainActivity : ComponentActivity() {
 
             composable(route = Route.homeView) {
                 RequesReadContactPermission()
-                HomeApp(navController,dropViewModel)
+                HomeApp(navController,dropViewModel, meansPaymentViewModel, transferViewModel)
             }
 
             composable(route = Route.searchView) {

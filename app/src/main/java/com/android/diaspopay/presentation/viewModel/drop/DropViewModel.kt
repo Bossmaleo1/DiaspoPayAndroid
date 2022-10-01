@@ -3,6 +3,8 @@ package com.android.diaspopay.presentation.viewModel.drop
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.android.diaspopay.domain.usecase.meanspayment.DeleteTableMeansPaymentUseCase
+import com.android.diaspopay.domain.usecase.transfer.DeleteTableTransferUseCase
 import com.android.diaspopay.domain.usecase.user.DeleteTableTokenUseCase
 import com.android.diaspopay.domain.usecase.user.DeleteTableUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +15,9 @@ import javax.inject.Inject
 class DropViewModel @Inject constructor(
     private val app: Application,
     private val deleteTableUserUseCase: DeleteTableUserUseCase,
-    private val deleteTableTokenUseCase: DeleteTableTokenUseCase
+    private val deleteTableTokenUseCase: DeleteTableTokenUseCase,
+    private val deleteTableTransferUseCase: DeleteTableTransferUseCase,
+    private val deleteTableMeansPaymentUseCase: DeleteTableMeansPaymentUseCase
 ): AndroidViewModel(app) {
 
     init {
@@ -23,6 +27,8 @@ class DropViewModel @Inject constructor(
     fun deleteAll() = viewModelScope.launch {
         deleteTableUserUseCase.execute()
         deleteTableTokenUseCase.execute()
+        deleteTableMeansPaymentUseCase.execute()
+        deleteTableTransferUseCase.execute()
     }
 
 }

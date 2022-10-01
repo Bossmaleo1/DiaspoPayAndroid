@@ -14,22 +14,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.android.diaspopay.data.model.data.MeansPayment
-import com.android.diaspopay.data.model.data.Transfer
 import com.android.diaspopay.data.model.dataRoom.MeansPaymentRoom
 import com.android.diaspopay.domain.usecase.meanspayment.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MeansPaymentViewModel(
+@HiltViewModel
+class MeansPaymentViewModel @Inject constructor(
     private val app: Application,
     private val getMeansPaymentUseCase: GetMeansPaymentUseCase,
     private val getSavedMeansPaymentUseCase: GetSavedMeansPaymentUseCase,
     private val getSearchMeansPaymentUseCase: GetSearchMeansPaymentUseCase,
     private val savedMeansPaymentUseCase: SaveMeansPaymentUseCase,
     private val updateSavedMeansPaymentUseCase: UpdateSavedMeansPaymentUseCase,
-    private val deleteSavedMeansPaymentUseCase: DeleteSavedMeansPaymentUseCase,
-    private val deleteTableMeansPayment: DeleteTableMeansPayment
+    private val deleteSavedMeansPaymentUseCase: DeleteSavedMeansPaymentUseCase
 ): AndroidViewModel(app) {
 
     private val meansPaymentStateRemoteList = mutableStateListOf<MeansPayment>()

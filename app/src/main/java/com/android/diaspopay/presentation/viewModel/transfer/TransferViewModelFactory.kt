@@ -11,8 +11,7 @@ class TransferViewModelFactory(
     private val getSavedTransferUseCase: GetSavedTransferUseCase,
     private val saveTransferUseCase: SaveTransferUseCase,
     private val updateSavedTransferUseCase: UpdateSavedTransferUseCase,
-    private val deleteSavedTransferUseCase: DeleteSavedTransferUseCase,
-    private val deleteTableTransferUseCase: DeleteTableTransferUseCase
+    private val deleteSavedTransferUseCase: DeleteSavedTransferUseCase
 ): ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -22,8 +21,7 @@ class TransferViewModelFactory(
             getSavedTransferUseCase,
             saveTransferUseCase,
             updateSavedTransferUseCase,
-            deleteSavedTransferUseCase,
-            deleteTableTransferUseCase
+            deleteSavedTransferUseCase
         ) as T
     }
 }
