@@ -14,24 +14,35 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.android.diaspopay.R
 import com.android.diaspopay.presentation.viewModel.drop.DropViewModel
+import com.android.diaspopay.presentation.viewModel.meansPayment.MeansPaymentViewModel
+import com.android.diaspopay.presentation.viewModel.transfer.TransferViewModel
 import com.android.diaspopay.ui.views.bottomnavigationviews.HistoryView
 import com.android.diaspopay.ui.views.model.Route
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import kotlinx.coroutines.delay
 
 @Composable
 @ExperimentalMaterial3Api
-fun HomeApp(navController: NavHostController, dropViewModel: DropViewModel) {
+fun HomeApp(
+    navController: NavHostController,
+    dropViewModel: DropViewModel,
+    meansPaymentViewModel: MeansPaymentViewModel,
+    transferViewModel: TransferViewModel
+) {
     val listState = rememberLazyListState()
     var fabExtended by rememberSaveable { mutableStateOf(true) }
     val density = LocalDensity.current
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    var isRefreshing by remember { mutableStateOf(false) }
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing)
 
     Scaffold(topBar = {
         AnimatedVisibility(
@@ -218,11 +229,41 @@ fun HomeApp(navController: NavHostController, dropViewModel: DropViewModel) {
         }) { innerPadding ->
             var isRefreshing by remember { mutableStateOf(false) }
             val swipeRefreshState = rememberSwipeRefreshState(isRefreshing)
+
+        SwipeRefresh(
+            state = swipeRefreshState,
+            onRefresh = {
+                isRefreshing = true
+                /*publicMessageViewModel.currentPage.value = 1
+                publicMessageViewModel.initPublicMessage()*/
+            },
+            indicator = { state, trigger ->
+                // publicMessageViewModel.initPublicMessage()
+                SwipeRefreshIndicator(
+                    // Pass the SwipeRefreshState + trigger through
+                    state = state,
+                    refreshTriggerDistance = trigger,
+                    // Enable the scale animation
+                    scale = true,
+                    // Change the color and shape
+                    backgroundColor = androidx.compose.material.MaterialTheme.colors.primary.copy(alpha = 0.08f),
+                    shape = MaterialTheme.shapes.small,
+                )
+            }
+        ) {
             LazyColumn(contentPadding = innerPadding, state = listState) {
                 items(count = 2000) {
                     HistoryView()
                 }
             }
+        }
+        // cette instruction permet de réactivé le reflesh
+        LaunchedEffect(isRefreshing) {
+            if (isRefreshing) {
+                delay(1000L)
+                isRefreshing = false
+            }
+        }
     }
 
 }

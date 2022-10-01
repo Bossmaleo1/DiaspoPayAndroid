@@ -12,8 +12,7 @@ class MeansPaymentViewModelFactory(
     private val getSearchMeansPaymentUseCase: GetSearchMeansPaymentUseCase,
     private val savedMeansPaymentUseCase: SaveMeansPaymentUseCase,
     private val updateSavedMeansPaymentUseCase: UpdateSavedMeansPaymentUseCase,
-    private val deleteSavedMeansPaymentUseCase: DeleteSavedMeansPaymentUseCase,
-    private val deleteTableMeansPayment: DeleteTableMeansPayment
+    private val deleteSavedMeansPaymentUseCase: DeleteSavedMeansPaymentUseCase
 ): ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -24,8 +23,7 @@ class MeansPaymentViewModelFactory(
             getSearchMeansPaymentUseCase,
             savedMeansPaymentUseCase,
             updateSavedMeansPaymentUseCase,
-            deleteSavedMeansPaymentUseCase,
-            deleteTableMeansPayment
+            deleteSavedMeansPaymentUseCase
         ) as T
     }
 }

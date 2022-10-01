@@ -29,8 +29,7 @@ class TransferViewModel @Inject constructor(
     private val getSavedTransferUseCase: GetSavedTransferUseCase,
     private val saveTransferUseCase: SaveTransferUseCase,
     private val updateSavedTransferUseCase: UpdateSavedTransferUseCase,
-    private val deleteSavedTransferUseCase: DeleteSavedTransferUseCase,
-    private val deleteTableTransferUseCase: DeleteTableTransferUseCase
+    private val deleteSavedTransferUseCase: DeleteSavedTransferUseCase
     ): AndroidViewModel(app) {
 
     private val transferStateRemoteList = mutableStateListOf<Transfer>()

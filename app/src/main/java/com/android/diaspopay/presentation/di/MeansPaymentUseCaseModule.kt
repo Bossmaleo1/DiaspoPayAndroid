@@ -1,9 +1,7 @@
 package com.android.diaspopay.presentation.di
 
 import com.android.diaspopay.domain.repository.MeansPaymentRepository
-import com.android.diaspopay.domain.repository.TransferRepository
 import com.android.diaspopay.domain.usecase.meanspayment.*
-import com.android.diaspopay.domain.usecase.transfer.UpdateSavedTransferUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,8 +39,8 @@ class MeansPaymentUseCaseModule {
     @Provides
     fun provideDeleteTableMeansPaymentUseCase(
         meansPaymentRepository: MeansPaymentRepository
-    ): DeleteTableMeansPayment {
-        return DeleteTableMeansPayment(meansPaymentRepository)
+    ): DeleteTableMeansPaymentUseCase {
+        return DeleteTableMeansPaymentUseCase(meansPaymentRepository)
     }
 
     @Singleton

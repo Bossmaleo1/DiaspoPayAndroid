@@ -25,8 +25,6 @@ o
 Sapp/src/main/java/com/android/diaspopay/domain/usecase/user/GetSavedTokenUseCase.kt,f/7/f7d1b1c1ee7042e39b725cbb41953fb9e3fe2d86
 g
 7app/src/main/java/com/android/diaspopay/DiaspoPayApp.kt,3/f/3f6b04b5b95d8de5262d36d5c4fb57aabe65f533
-m
-=app/src/main/java/com/android/diaspopay/ui/views/LoginView.kt,7/1/714b34269f632281c51b7283c567e07feb3201c5
 P
  app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
 Ü
@@ -35,16 +33,8 @@ x
 Happ/src/main/java/com/android/diaspopay/data/model/dataRoom/TokenRoom.kt,7/9/792c64776cb759f72decb710dce5eff2fb7134e3
 Ö
 Uapp/src/main/java/com/android/diaspopay/domain/usecase/user/DeleteTableUserUseCase.kt,9/9/99acb36079f36534c9632d1589d80af3bb957c51
-ã
-[app/src/main/java/com/android/diaspopay/presentation/viewModel/drop/DropViewModelFactory.kt,0/1/010049a4e02b15fed406ede25b4955bc8a3f1e3c
-Ñ
-Tapp/src/main/java/com/android/diaspopay/presentation/viewModel/drop/DropViewModel.kt,8/9/892e0c2e69ff614b6507fc5a94daf37f96cc9ea6
 @
 app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164
-j
-:app/src/main/java/com/android/diaspopay/ui/MainActivity.kt,5/f/5f87bf427c45e2599a15d492697f4f77ff29e63c
-o
-?app/src/main/java/com/android/diaspopay/ui/views/HomeAppView.kt,a/0/a0bdac681677f9d0a82c5d0cd92b6ac21dcb14cc
 m
 =app/src/main/java/com/android/diaspopay/data/model/Contact.kt,d/1/d1e3493e708ea0e4a419a62781e73b4f6c79db26
 w
@@ -83,8 +73,6 @@ r
 Bapp/src/main/java/com/android/diaspopay/data/db/dao/TransferDAO.kt,4/2/42dd256112d41476c836fd86c635704efe682b9b
 v
 Fapp/src/main/java/com/android/diaspopay/data/db/dao/MeansPaymentDAO.kt,0/2/024c735054489ed38642776fa14da4547e443aa7
-é
-^app/src/main/java/com/android/diaspopay/domain/usecase/meanspayment/DeleteTableMeansPayment.kt,b/2/b27d2734e29fa0863f58c7a461b831d0cb1e6f23
 í
 bapp/src/main/java/com/android/diaspopay/domain/usecase/meanspayment/GetSavedMeansPaymentUseCase.kt,7/2/720307ade8f3619b19268a83ffa7373f478e714d
 ç
