@@ -63,7 +63,7 @@ fun Login(navController: NavHostController, userViewModel: UserViewModel, contex
                     // Dismiss the dialog when the user clicks outside the dialog or on the back
                     // button. If you want to disable that functionality, simply use an empty
                     // onCloseRequest.
-                    isLoading.value = false
+                   // isLoading.value = false
                 },
                 title = {
 
@@ -83,9 +83,6 @@ fun Login(navController: NavHostController, userViewModel: UserViewModel, contex
                     }
                 },
                 confirmButton = {
-
-                },
-                dismissButton = {
 
                 }
             )
@@ -279,7 +276,6 @@ fun Login(navController: NavHostController, userViewModel: UserViewModel, contex
                 .padding(top = 20.dp, bottom = 0.dp, start = 30.dp, end = 30.dp),
             border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.primary),
             onClick = {
-                //navController.navigate(Route.homeView)
                 viewModelLogin(userViewModel, email,password, context)
             }) {
             Icon(

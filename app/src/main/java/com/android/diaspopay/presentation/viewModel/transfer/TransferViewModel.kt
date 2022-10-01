@@ -32,9 +32,9 @@ class TransferViewModel @Inject constructor(
     private val deleteSavedTransferUseCase: DeleteSavedTransferUseCase
     ): AndroidViewModel(app) {
 
-    private val transferStateRemoteList = mutableStateListOf<Transfer>()
+     val transferStateRemoteList = mutableStateListOf<Transfer>()
     private val transferList: MutableLiveData<List<Transfer>> = MutableLiveData()
-    private val currentPage : MutableState<Int> = mutableStateOf(1)
+     val currentPage : MutableState<Int> = mutableStateOf(1)
 
     fun getTransfer(sender: String,page: Int,pagination: Boolean,token: String) {
         viewModelScope.launch(Dispatchers.IO) {

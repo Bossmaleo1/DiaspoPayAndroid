@@ -25,10 +25,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.android.diaspopay.R
+import com.android.diaspopay.data.model.data.Transfer
 
 @ExperimentalMaterial3Api
 @Composable
-fun HistoryView() {
+fun HistoryView(transfer: Transfer) {
     val userName by rememberSaveable { mutableStateOf("Sidney MALEO") }
     val amount by rememberSaveable { mutableStateOf("100€") }
 
