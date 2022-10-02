@@ -20,4 +20,6 @@
     <string name="account">Compte</string>
     <string name="contact_us">Nous contacter</string>
     <string name="guest_friend">Inviter vos amis</string>
+    <string name="cancel">Annuler</string>
+    <string name="in_progress">En Cours</string>
 </resources>

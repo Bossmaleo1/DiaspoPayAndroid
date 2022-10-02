@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
 import com.android.diaspopay.R
+import com.android.diaspopay.data.model.dataRoom.UserRoom
 import com.android.diaspopay.presentation.viewModel.drop.DropViewModel
 import com.android.diaspopay.presentation.viewModel.meansPayment.MeansPaymentViewModel
 import com.android.diaspopay.presentation.viewModel.transfer.TransferViewModel
@@ -54,14 +55,13 @@ fun HomeApp(
 
 
     userViewModel.getSavedToken()
+        .observe(LocalContext.current as LifecycleOwner) {tokenRoom -> }
     val token by userViewModel.tokenValue.observeAsState()
-    val user by userViewModel.userValue.observeAsState()
-
     if (!token?.token.isNullOrBlank()) {
         userViewModel.getSavedUserByToken(token?.token!!)
             .observe(LocalContext.current as LifecycleOwner) {}
-
     }
+    val user by userViewModel.userValue.observeAsState()
 
     Scaffold(topBar = {
         AnimatedVisibility(
@@ -247,7 +247,13 @@ fun HomeApp(
 
         }) { innerPadding ->
 
-        if (transferViewModel.currentPage.value == 1 && !isRefreshing) {
+
+
+        if (
+            transferViewModel.currentPage.value == 1
+            && !isRefreshing && !token?.token.isNullOrBlank()
+            && user?.id !== null
+        ) {
             transferViewModel.getTransfer(
                 sender = "/api/users/${user?.id}",
                 transferViewModel.currentPage.value,
@@ -277,22 +283,21 @@ fun HomeApp(
                 )
             }
         ) {
-            /*LazyColumn(contentPadding = innerPadding, state = listState) {
-                items(count = 2000) {
 
-                }
-            }*/
-            InfiniteListTransferRemote(
-                listState = listState,
-                listItems = remember { transferViewModel.transferStateRemoteList },
-                paddingValues = PaddingValues(
-                    top = innerPadding.calculateTopPadding(),
-                    bottom = innerPadding.calculateBottomPadding()
-                ),
-                transferViewModel = transferViewModel,
-                sender = "/api/users/${user?.id}",
-                token = token?.token!!
-            )
+            if (!token?.token.isNullOrBlank() && user?.id !== null) {
+                InfiniteListTransferRemote(
+                    listState = listState,
+                    listItems = remember { transferViewModel.transferStateRemoteList },
+                    paddingValues = PaddingValues(
+                        top = innerPadding.calculateTopPadding(),
+                        bottom = innerPadding.calculateBottomPadding()
+                    ),
+                    transferViewModel = transferViewModel,
+                    sender = "/api/users/${user?.id}",
+                    token = token?.token!!
+                )
+            }
+
         }
         // cette instruction permet de réactivé le reflesh
         LaunchedEffect(isRefreshing) {

@@ -11,7 +11,7 @@ data class Transfer (
     @SerializedName("published")
     var published: Date,
     @SerializedName("amount")
-    var amount: Int,
+    var amount: Float,
     @SerializedName("fee")
     var fee: Int,
     @SerializedName("discount")
@@ -25,9 +25,9 @@ data class Transfer (
     @SerializedName("meansPayment")
     var meansPayment: String,
     @SerializedName("beneficiary")
-    var beneficiary: String,
+    var beneficiary: User,
     @SerializedName("sender")
-    var sender: String,
+    var sender: User,
     @SerializedName("status")
     var status: String,
     @SerializedName("details")

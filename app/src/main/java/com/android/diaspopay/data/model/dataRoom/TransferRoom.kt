@@ -21,7 +21,7 @@ data class TransferRoom(
     @ColumnInfo(name = "transfer_published")
     var published: String,
     @ColumnInfo(name = "transfer_amount")
-    var amount: Int,
+    var amount: Float,
     @ColumnInfo(name = "transfer_fee")
     var fee: Int,
     @ColumnInfo(name = "transfer_discount")

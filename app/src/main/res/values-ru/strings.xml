@@ -20,4 +20,6 @@
     <string name="account">Счет</string>
     <string name="contact_us">Свяжитесь с нами</string>
     <string name="guest_friend">Пригласить своих друзей</string>
+    <string name="in_progress">В ходе выполнения</string>
+    <string name="cancel">отменить</string>
 </resources>
