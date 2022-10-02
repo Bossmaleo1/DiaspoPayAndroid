@@ -1,6 +1,7 @@
 package com.android.diaspopay.ui.views.utils
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,7 +27,7 @@ fun InfiniteListTransferRemote(
 ) {
 
     LazyColumn(
-        contentPadding = paddingValues, //PaddingValues(),
+        contentPadding = paddingValues,
         state = listState
     ) {
 
@@ -34,18 +35,18 @@ fun InfiniteListTransferRemote(
             HistoryView(transfer)
         }
 
-        /*items(count = 1) {
+        items(count = 1) {
             TransferShimmer()
-        }*/
+        }
     }
 
-    /*listState.OnBottomReached(buffer = 2) {
+    listState.OnBottomReached(buffer = 2) {
         transferViewModel.getTransfer(
             sender = sender,
             transferViewModel.currentPage.value + 1,
             pagination = true,
            token)
-    }*/
+    }
 
 }
 

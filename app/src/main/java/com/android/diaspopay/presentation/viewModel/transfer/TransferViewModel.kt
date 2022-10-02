@@ -68,8 +68,8 @@ class TransferViewModel @Inject constructor(
                 transfer.exchangeRate,
                 transfer.sendingCountryIsoCode,
                 transfer.transferMotif,
-                transfer.beneficiary,
-                transfer.sender,
+                transfer.beneficiary.id.toString(),
+                transfer.sender.id.toString(),
                 transfer.status,
                 transfer.details
             )
