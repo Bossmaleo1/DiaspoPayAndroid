@@ -3,6 +3,8 @@ package com.android.diaspopay.ui.views.utils
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ErrorOutline
+import androidx.compose.material.icons.outlined.HourglassEmpty
+import androidx.compose.material.icons.outlined.PanTool
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -11,8 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun networkError(paddingValues: PaddingValues) {
-
+fun emptyResult(paddingValues: PaddingValues) {
     Card(
         modifier = Modifier
             .fillMaxWidth(),
@@ -25,17 +26,14 @@ fun networkError(paddingValues: PaddingValues) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
-                Icons.Outlined.ErrorOutline,
+                Icons.Outlined.PanTool,
                 contentDescription = null,
-                modifier = Modifier.fillMaxSize(0.3F),
-                tint = Color.Red
+                modifier = Modifier.fillMaxSize(0.3F)
             )
 
             Text(
-                text = "Une erreur serveur vient de  se produire",
-                color = Color.Red,
+                text = "Vous avez encore effetuer auncun transfert",
                 modifier = Modifier.padding(start = 4.dp, top = 10.dp))
         }
     }
-
 }

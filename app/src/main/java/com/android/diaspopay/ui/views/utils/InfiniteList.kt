@@ -38,6 +38,7 @@ fun InfiniteListTransferRemote(
         if (
             transferViewModel.networkState.value
             && transferViewModel.serverError.value
+            && transferViewModel.isEmptyResult.value
         ) {
             items(count = 1) {
                 TransferShimmer()
@@ -47,6 +48,12 @@ fun InfiniteListTransferRemote(
         if (!transferViewModel.serverError.value) {
             items(count = 1) {
                 networkError(paddingValues)
+            }
+        }
+
+        if (!transferViewModel.isEmptyResult.value) {
+            items(count = 1) {
+                emptyResult(paddingValues)
             }
         }
 

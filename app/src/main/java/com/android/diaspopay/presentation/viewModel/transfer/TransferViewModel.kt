@@ -35,6 +35,7 @@ class TransferViewModel @Inject constructor(
      val currentPage : MutableState<Int> = mutableStateOf(1)
      val networkState : MutableState<Boolean> = mutableStateOf(true)
      val serverError: MutableState<Boolean> = mutableStateOf(true)
+     val isEmptyResult: MutableState<Boolean> = mutableStateOf(true)
 
     fun getTransfer(sender: String,page: Int,pagination: Boolean,token: String) {
         networkState.value = true
@@ -47,6 +48,9 @@ class TransferViewModel @Inject constructor(
                         transferList.postValue(it.transfers)
                         transferStateRemoteList.addAll(it.transfers)
                         currentPage.value = page
+                        if (currentPage.value == 1 && it.transfers.isEmpty()) {
+                            isEmptyResult.value = false
+                        }
                     }
                     networkState.value = true
                 } else {
