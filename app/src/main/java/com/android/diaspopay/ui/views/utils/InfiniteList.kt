@@ -1,7 +1,6 @@
 package com.android.diaspopay.ui.views.utils
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
@@ -48,12 +47,6 @@ fun InfiniteListTransferRemote(
         if (!transferViewModel.serverError.value) {
             items(count = 1) {
                 networkError(paddingValues)
-            }
-        }
-
-        if (!transferViewModel.isEmptyResult.value) {
-            items(count = 1) {
-                emptyResult(paddingValues)
             }
         }
 

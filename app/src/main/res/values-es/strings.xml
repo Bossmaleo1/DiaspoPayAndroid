@@ -22,4 +22,6 @@
     <string name="guest_friend">Invita a tus amigos</string>
     <string name="cancel">Anular</string>
     <string name="in_progress">En curso</string>
+    <string name="network_error">Acaba de ocurrir un error del servidor</string>
+    <string name="empty_result">Aún no has realizado ninguna transferencia</string>
 </resources>
