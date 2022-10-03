@@ -230,21 +230,26 @@ fun HomeApp(
                     }
             }
 
-            ExtendedFloatingActionButton(
-                icon = { Icon(Icons.Filled.EuroSymbol, "") },
-                expanded = fabExtended,
-                modifier = Modifier.padding(bottom = 20.dp),
-                text = {
-                    Text(
-                        text = stringResource(R.string.send_money),
-                        style = MaterialTheme.typography.titleSmall
-                    )
-                },
-                onClick = {
-                    navController.navigate(Route.searchView)
-                },
-                elevation = FloatingActionButtonDefaults.elevation(8.dp),
-            )
+            if (
+                !transferViewModel.serverError.value &&
+                !transferViewModel.networkState.value
+            ) {
+                ExtendedFloatingActionButton(
+                    icon = { Icon(Icons.Filled.EuroSymbol, "") },
+                    expanded = fabExtended,
+                    modifier = Modifier.padding(bottom = 20.dp),
+                    text = {
+                        Text(
+                            text = stringResource(R.string.send_money),
+                            style = MaterialTheme.typography.titleSmall
+                        )
+                    },
+                    onClick = {
+                        navController.navigate(Route.searchView)
+                    },
+                    elevation = FloatingActionButtonDefaults.elevation(8.dp),
+                )
+            }
 
         }) { innerPadding ->
 

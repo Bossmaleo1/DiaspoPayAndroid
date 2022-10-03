@@ -163,8 +163,6 @@ Happ/src/main/java/com/android/diaspopay/presentation/di/FactoryModule.kt,0/e/0
 [app/src/main/java/com/android/diaspopay/presentation/viewModel/drop/DropViewModelFactory.kt,0/1/010049a4e02b15fed406ede25b4955bc8a3f1e3c
 s
 Capp/src/main/java/com/android/diaspopay/data/model/data/Transfer.kt,d/8/d885675c9d60e5029506d06a9dbe1f12df18b186
-n
->app/src/main/java/com/android/diaspopay/ui/views/LaunchView.kt,d/4/d4a482d645e901d776f528abbd98746d0b4f149e
 „
 Tapp/src/main/java/com/android/diaspopay/presentation/viewModel/user/UserViewModel.kt,2/5/257eab1cce73a7120e024441a287bc9c8f58aad4
 m
