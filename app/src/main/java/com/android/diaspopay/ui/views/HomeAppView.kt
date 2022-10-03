@@ -31,6 +31,7 @@ import com.android.diaspopay.presentation.viewModel.user.UserViewModel
 import com.android.diaspopay.ui.views.bottomnavigationviews.HistoryView
 import com.android.diaspopay.ui.views.model.Route
 import com.android.diaspopay.ui.views.utils.InfiniteListTransferRemote
+import com.android.diaspopay.ui.views.utils.networkError
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState

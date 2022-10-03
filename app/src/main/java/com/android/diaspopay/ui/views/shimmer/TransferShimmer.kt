@@ -86,7 +86,7 @@ fun ShimmerGridItem(brush: Brush) {
         ) {
             Spacer(
                 modifier = Modifier
-                    .padding(4.dp)
+                    .padding(10.dp)
                     .size(50.dp)
                     .clip(RoundedCornerShape(25.dp))
                     .background(brush))
@@ -115,7 +115,7 @@ fun ShimmerGridItem(brush: Brush) {
                             .background(brush)
                     )
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
 
                     Spacer(
                         modifier = Modifier
@@ -135,7 +135,7 @@ fun ShimmerGridItem(brush: Brush) {
                             .background(brush)
                     )
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
 
                     Spacer(
                         modifier = Modifier
@@ -145,7 +145,7 @@ fun ShimmerGridItem(brush: Brush) {
                             .background(brush)
                     )
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
 
                     Spacer(
                         modifier = Modifier

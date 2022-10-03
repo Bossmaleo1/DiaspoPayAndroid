@@ -5,7 +5,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import android.widget.Toast
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -18,7 +17,6 @@ import com.android.diaspopay.data.model.dataRoom.TransferRoom
 import com.android.diaspopay.domain.usecase.transfer.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,10 +31,14 @@ class TransferViewModel @Inject constructor(
     ): AndroidViewModel(app) {
 
      val transferStateRemoteList = mutableStateListOf<Transfer>()
-    private val transferList: MutableLiveData<List<Transfer>> = MutableLiveData()
+     private val transferList: MutableLiveData<List<Transfer>> = MutableLiveData()
      val currentPage : MutableState<Int> = mutableStateOf(1)
+     val networkState : MutableState<Boolean> = mutableStateOf(true)
+     val serverError: MutableState<Boolean> = mutableStateOf(true)
 
     fun getTransfer(sender: String,page: Int,pagination: Boolean,token: String) {
+        networkState.value = true
+        serverError.value = true
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (isNetworkAvailable(app)) {
@@ -46,11 +48,15 @@ class TransferViewModel @Inject constructor(
                         transferStateRemoteList.addAll(it.transfers)
                         currentPage.value = page
                     }
+                    networkState.value = true
                 } else {
-                    Toast.makeText(app.applicationContext,"Internet is not available", Toast.LENGTH_LONG).show()
+                    networkState.value = false
+                    //Toast.makeText(app.applicationContext,"Internet is not available", Toast.LENGTH_LONG).show()
                 }
+                serverError.value = true
             } catch (e: Exception) {
-                Toast.makeText(app,e.message.toString(),Toast.LENGTH_LONG).show()
+                serverError.value = false
+                //Toast.makeText(app,e.message.toString(),Toast.LENGTH_LONG).show()
             }
 
         }
