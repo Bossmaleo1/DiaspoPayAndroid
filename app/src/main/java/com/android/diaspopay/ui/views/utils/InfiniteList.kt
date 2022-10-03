@@ -35,9 +35,21 @@ fun InfiniteListTransferRemote(
             HistoryView(transfer)
         }
 
-        items(count = 1) {
-            TransferShimmer()
+        if (
+            transferViewModel.networkState.value
+            && transferViewModel.serverError.value
+        ) {
+            items(count = 1) {
+                TransferShimmer()
+            }
         }
+
+        if (!transferViewModel.serverError.value) {
+            items(count = 1) {
+                networkError(paddingValues)
+            }
+        }
+
     }
 
     listState.OnBottomReached(buffer = 2) {

@@ -167,8 +167,6 @@ n
 >app/src/main/java/com/android/diaspopay/ui/views/LaunchView.kt,d/4/d4a482d645e901d776f528abbd98746d0b4f149e
 „
 Tapp/src/main/java/com/android/diaspopay/presentation/viewModel/user/UserViewModel.kt,2/5/257eab1cce73a7120e024441a287bc9c8f58aad4
-Œ
-\app/src/main/java/com/android/diaspopay/presentation/viewModel/transfer/TransferViewModel.kt,1/f/1fa028f64f65685d65d1cedd16e172a10640a909
 m
 =app/src/main/java/com/android/diaspopay/ui/views/LoginView.kt,7/1/714b34269f632281c51b7283c567e07feb3201c5
 {
