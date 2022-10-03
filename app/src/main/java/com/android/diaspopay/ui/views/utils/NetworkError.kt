@@ -8,7 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.android.diaspopay.R
 
 @Composable
 fun networkError(paddingValues: PaddingValues) {
@@ -32,7 +34,7 @@ fun networkError(paddingValues: PaddingValues) {
             )
 
             Text(
-                text = "Une erreur serveur vient de  se produire",
+                text = stringResource(R.string.network_error),
                 color = Color.Red,
                 modifier = Modifier.padding(start = 4.dp, top = 10.dp))
         }

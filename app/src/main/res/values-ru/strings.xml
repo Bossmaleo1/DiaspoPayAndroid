@@ -22,4 +22,6 @@
     <string name="guest_friend">Пригласить своих друзей</string>
     <string name="in_progress">В ходе выполнения</string>
     <string name="cancel">отменить</string>
+    <string name="network_error">Только что произошла ошибка сервера</string>
+    <string name="empty_result">Вы еще не совершали переводов</string>
 </resources>

@@ -10,7 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.android.diaspopay.R
 
 @Composable
 fun emptyResult(paddingValues: PaddingValues) {
@@ -28,11 +30,13 @@ fun emptyResult(paddingValues: PaddingValues) {
             Icon(
                 Icons.Outlined.PanTool,
                 contentDescription = null,
+                tint =  MaterialTheme.colorScheme.primary,
                 modifier = Modifier.fillMaxSize(0.3F)
             )
 
             Text(
-                text = "Vous avez encore effetuer auncun transfert",
+                text = stringResource(R.string.empty_result),
+                color =  MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(start = 4.dp, top = 10.dp))
         }
     }
