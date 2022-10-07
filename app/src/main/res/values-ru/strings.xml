@@ -24,4 +24,6 @@
     <string name="cancel">отменить</string>
     <string name="network_error">Только что произошла ошибка сервера</string>
     <string name="empty_result">Вы еще не совершали переводов</string>
+    <string name="network_state">У вас нет подключения к интернету</string>
+    <string name="retry">повторить попытку</string>
 </resources>

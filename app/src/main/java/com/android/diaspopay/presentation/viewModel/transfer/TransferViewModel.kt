@@ -5,14 +5,13 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.android.diaspopay.data.model.data.Transfer
+import com.android.diaspopay.data.model.dataRoom.TokenRoom
 import com.android.diaspopay.data.model.dataRoom.TransferRoom
 import com.android.diaspopay.domain.usecase.transfer.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,34 +32,56 @@ class TransferViewModel @Inject constructor(
      val transferStateRemoteList = mutableStateListOf<Transfer>()
      private val transferList: MutableLiveData<List<Transfer>> = MutableLiveData()
      val currentPage : MutableState<Int> = mutableStateOf(1)
-     val networkState : MutableState<Boolean> = mutableStateOf(true)
      val serverError: MutableState<Boolean> = mutableStateOf(true)
-     val isEmptyResult: MutableState<Boolean> = mutableStateOf(true)
+
+    private val networkStateMutable: MutableLiveData<Boolean> = MutableLiveData()
+    val networkStateValue: LiveData<Boolean> = networkStateMutable
+
+    private val isEmptyResultMutable: MutableLiveData<Boolean> = MutableLiveData()
+    val isEmptyResultValue: LiveData<Boolean> = isEmptyResultMutable
+
+    private val isProgressBarMutable: MutableLiveData<Boolean> = MutableLiveData()
+    val isProgressBarValue: LiveData<Boolean> = isProgressBarMutable
 
     fun getTransfer(sender: String,page: Int,pagination: Boolean,token: String) {
-        networkState.value = true
         serverError.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                if (isNetworkAvailable(app)) {
-                    val apiResult = getTransferUseCase.execute(sender, page,pagination = true, token = "Bearer $token")
-                    apiResult.data?.let {
-                        transferList.postValue(it.transfers)
-                        transferStateRemoteList.addAll(it.transfers)
-                        currentPage.value = page
-                        if (currentPage.value == 1 && it.transfers.isEmpty()) {
-                            isEmptyResult.value = false
+            if (isNetworkAvailable(app)) {
+                networkStateMutable.postValue(true)
+                isProgressBarMutable.postValue(true)
+                try {
+                        val apiResult = getTransferUseCase.execute(sender, page,pagination = true, token = "Bearer $token")
+                        apiResult.data?.let {
+                            transferList.postValue(it.transfers)
+                            transferStateRemoteList.addAll(it.transfers)
+                            currentPage.value = page
+
+                            if (currentPage.value == 1 && it.transfers.isEmpty()) {
+                                isEmptyResultMutable.postValue(false)
+                            }
+
+                            if (currentPage.value > 1 && it.transfers.isEmpty()) {
+                                isProgressBarMutable.postValue(false)
+                            }
+
+                            if (it.transfers.size == 10) {
+                                isProgressBarMutable.postValue(true)
+                            }
+
+                            if (currentPage.value == 1 && transferStateRemoteList.isNotEmpty()) {
+                                isEmptyResultMutable.postValue(true)
+                            }
                         }
-                    }
-                    networkState.value = true
-                } else {
-                    networkState.value = false
-                    //Toast.makeText(app.applicationContext,"Internet is not available", Toast.LENGTH_LONG).show()
+
+
+                        serverError.value = true
+                } catch (e: Exception) {
+                    serverError.value = false
+                    isProgressBarMutable.postValue(false)
                 }
-                serverError.value = true
-            } catch (e: Exception) {
-                serverError.value = false
-                //Toast.makeText(app,e.message.toString(),Toast.LENGTH_LONG).show()
+            } else {
+                networkStateMutable.postValue(false)
+                isProgressBarMutable.postValue(false)
             }
 
         }

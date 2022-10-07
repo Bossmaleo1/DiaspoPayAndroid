@@ -1,15 +1,15 @@
 package com.android.diaspopay.ui.views
 
-import android.util.Log
 import androidx.compose.animation.*
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.EuroSymbol
 import androidx.compose.material.icons.outlined.*
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -23,16 +23,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
 import com.android.diaspopay.R
-import com.android.diaspopay.data.model.dataRoom.UserRoom
 import com.android.diaspopay.presentation.viewModel.drop.DropViewModel
 import com.android.diaspopay.presentation.viewModel.meansPayment.MeansPaymentViewModel
 import com.android.diaspopay.presentation.viewModel.transfer.TransferViewModel
 import com.android.diaspopay.presentation.viewModel.user.UserViewModel
-import com.android.diaspopay.ui.views.bottomnavigationviews.HistoryView
 import com.android.diaspopay.ui.views.model.Route
 import com.android.diaspopay.ui.views.utils.InfiniteListTransferRemote
 import com.android.diaspopay.ui.views.utils.emptyResult
-import com.android.diaspopay.ui.views.utils.networkError
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -57,25 +54,28 @@ fun HomeApp(
 
 
     userViewModel.getSavedToken()
-        .observe(LocalContext.current as LifecycleOwner) {tokenRoom -> }
+        .observe(LocalContext.current as LifecycleOwner) { tokenRoom -> }
     val token by userViewModel.tokenValue.observeAsState()
+    val networkState  by transferViewModel.networkStateValue.observeAsState()
+    val isEmptyResult by transferViewModel.isEmptyResultValue.observeAsState()
     if (!token?.token.isNullOrBlank()) {
         userViewModel.getSavedUserByToken(token?.token!!)
             .observe(LocalContext.current as LifecycleOwner) {}
     }
     val user by userViewModel.userValue.observeAsState()
 
-    Scaffold(topBar = {
-        AnimatedVisibility(
-            visible = fabExtended,
-            enter = slideInVertically {
-                // Slide in from 40 dp from the top.
-                with(density) { -40.dp.roundToPx() }
-            } + expandVertically(
-                // Expand from the top.
-                expandFrom = Alignment.Top
-            ) + fadeIn(
-                // Fade in with the initial alpha of 0.3f.
+    Scaffold(
+        topBar = {
+            AnimatedVisibility(
+                visible = fabExtended,
+                enter = slideInVertically {
+                    // Slide in from 40 dp from the top.
+                    with(density) { -40.dp.roundToPx() }
+                } + expandVertically(
+                    // Expand from the top.
+                    expandFrom = Alignment.Top
+                ) + fadeIn(
+                    // Fade in with the initial alpha of 0.3f.
                 initialAlpha = 0.3f
             ),
             exit = slideOutVertically() + shrinkVertically() + fadeOut()
@@ -207,6 +207,7 @@ fun HomeApp(
                             onClick = {
                                 /* Handle settings! */
                                 dropViewModel.deleteAll()
+                                transferViewModel.initTransfer()
                                 navController.navigate(Route.loginView)
                             },
                             leadingIcon = {
@@ -233,7 +234,7 @@ fun HomeApp(
 
             if (
                 transferViewModel.serverError.value &&
-                transferViewModel.networkState.value
+                networkState == true
             ) {
                 ExtendedFloatingActionButton(
                     icon = { Icon(Icons.Filled.EuroSymbol, "") },
@@ -252,14 +253,32 @@ fun HomeApp(
                 )
             }
 
-        }) { innerPadding ->
+        },
+       snackbarHost = {
+            if (networkState == false) {
+                Snackbar(
+                    action = {
+                        Button(onClick = {
+
+                        }) {
+                            Text(text = stringResource(R.string.retry))
+                        }
+                    },
+                    modifier = Modifier
+                        .padding(8.dp)
+                ) { Text(text = stringResource(R.string.network_state)) }
+            }
+        },
+    ) { innerPadding ->
 
 
-        if (!transferViewModel.isEmptyResult.value) {
-                emptyResult(PaddingValues(
+        if (isEmptyResult == false && networkState == true) {
+            emptyResult(
+                PaddingValues(
                     top = innerPadding.calculateTopPadding(),
                     bottom = innerPadding.calculateBottomPadding()
-                ))
+                )
+            )
         }
 
         if (

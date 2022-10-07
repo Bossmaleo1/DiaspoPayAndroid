@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import com.android.diaspopay.data.model.data.Transfer
 import com.android.diaspopay.presentation.viewModel.transfer.TransferViewModel
 import com.android.diaspopay.ui.views.bottomnavigationviews.HistoryView
@@ -25,6 +26,10 @@ fun InfiniteListTransferRemote(
     token: String
 ) {
 
+    val networkState  by transferViewModel.networkStateValue.observeAsState()
+    val isEmptyResult by transferViewModel.isEmptyResultValue.observeAsState()
+    val isProgressBar by transferViewModel.isProgressBarValue.observeAsState()
+
     LazyColumn(
         contentPadding = paddingValues,
         state = listState
@@ -35,9 +40,7 @@ fun InfiniteListTransferRemote(
         }
 
         if (
-            transferViewModel.networkState.value
-            && transferViewModel.serverError.value
-            && transferViewModel.isEmptyResult.value
+             isProgressBar == true
         ) {
             items(count = 1) {
                 TransferShimmer()
