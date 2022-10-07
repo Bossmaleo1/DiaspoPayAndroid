@@ -24,4 +24,6 @@
     <string name="in_progress">In progress</string>
     <string name="network_error">A server error has just occurred</string>
     <string name="empty_result">You have not yet made any transfers</string>
+    <string name="network_state">You don\'t have an internet connection</string>
+    <string name="retry">Retry</string>
 </resources>

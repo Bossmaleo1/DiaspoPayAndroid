@@ -24,4 +24,6 @@
     <string name="in_progress">En Cours</string>
     <string name="network_error">Une erreur serveur vient de  se produire</string>
     <string name="empty_result">Vous avez encore éffectuer aucun transfert</string>
+    <string name="network_state">Vous n\'avez pas de connexion internet</string>
+    <string name="retry">Réessayez</string>
 </resources>
