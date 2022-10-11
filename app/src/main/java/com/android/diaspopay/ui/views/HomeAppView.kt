@@ -56,6 +56,12 @@ fun HomeApp(
     val token by userViewModel.tokenValue.observeAsState()
     val networkState  by transferViewModel.networkStateValue.observeAsState()
     val isEmptyResult by transferViewModel.isEmptyResultValue.observeAsState()
+    val isOffLine by transferViewModel.isOffLineValue.observeAsState()
+    if(isOffLine == true) {
+        transferViewModel.initTransfer()
+        transferViewModel.getAllTransfer().observe(LocalContext.current as LifecycleOwner) {}
+    }
+
     if (!token?.token.isNullOrBlank()) {
         userViewModel.getSavedUserByToken(token?.token!!)
             .observe(LocalContext.current as LifecycleOwner) {}
@@ -308,7 +314,7 @@ fun HomeApp(
                     // Enable the scale animation
                     scale = true,
                     // Change the color and shape
-                    backgroundColor = androidx.compose.material.MaterialTheme.colors.primary.copy(alpha = 0.08f),
+                    backgroundColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
                     shape = MaterialTheme.shapes.small,
                 )
             }

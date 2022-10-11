@@ -35,8 +35,6 @@ Uapp/src/main/java/com/android/diaspopay/domain/usecase/user/DeleteTableUserUseC
 app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164
 m
 =app/src/main/java/com/android/diaspopay/data/model/Contact.kt,d/1/d1e3493e708ea0e4a419a62781e73b4f6c79db26
-o
-?app/src/main/java/com/android/diaspopay/data/model/data/User.kt,4/a/4ae2c3ba80625f20a3b38c126839460134636741
 y
 Iapp/src/main/java/com/android/diaspopay/data/model/api/ApiUserResponse.kt,3/a/3a5ff82148aa191539afc88214c0615857013e81
 z
@@ -73,8 +71,6 @@ bapp/src/main/java/com/android/diaspopay/domain/usecase/meanspayment/GetSavedMea
 ]app/src/main/java/com/android/diaspopay/domain/usecase/transfer/DeleteSavedTransferUseCase.kt,b/a/ba1682f2d56b05ce201786d778cd9864e731772c
 •
 eapp/src/main/java/com/android/diaspopay/domain/usecase/meanspayment/UpdateSavedMeansPaymentUseCase.kt,c/3/c35597504e70184f05c2589d539544793e055e3a
-Š
-Zapp/src/main/java/com/android/diaspopay/domain/usecase/transfer/GetSavedTransferUseCase.kt,0/9/09e819502abdf24b2c676a324186c8f856788834
 
 ]app/src/main/java/com/android/diaspopay/domain/usecase/transfer/DeleteTableTransferUseCase.kt,8/7/87cec48a0623c4ee3f1d381af1697a5bbc92239d
 }
@@ -161,11 +157,9 @@ x
 Happ/src/main/java/com/android/diaspopay/presentation/di/FactoryModule.kt,0/e/0ec6af7642298f715926d6e5ed7fd942e174ada2
 ‹
 [app/src/main/java/com/android/diaspopay/presentation/viewModel/drop/DropViewModelFactory.kt,0/1/010049a4e02b15fed406ede25b4955bc8a3f1e3c
-s
-Capp/src/main/java/com/android/diaspopay/data/model/data/Transfer.kt,d/8/d885675c9d60e5029506d06a9dbe1f12df18b186
-m
-=app/src/main/java/com/android/diaspopay/ui/views/LoginView.kt,7/1/714b34269f632281c51b7283c567e07feb3201c5
-{
-Kapp/src/main/java/com/android/diaspopay/data/model/dataRoom/TransferRoom.kt,8/4/84bc9f693d66ae7e6cac65f7a7a5464aeeb78c8f
 j
 :app/src/main/java/com/android/diaspopay/ui/MainActivity.kt,5/f/5f87bf427c45e2599a15d492697f4f77ff29e63c
+m
+=app/src/main/java/com/android/diaspopay/ui/views/LoginView.kt,7/1/714b34269f632281c51b7283c567e07feb3201c5
+n
+>app/src/main/java/com/android/diaspopay/ui/views/LaunchView.kt,d/4/d4a482d645e901d776f528abbd98746d0b4f149e

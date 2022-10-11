@@ -32,12 +32,22 @@ data class TransferRoom(
     var sendingCountryIsoCode: String,
     @ColumnInfo(name = "transfer_transfer_motif")
     var transferMotif: String,
-    @ColumnInfo(name = "transfer_beneficiary")
-    var beneficiary: String,
-    @ColumnInfo(name = "transfer_sender")
-    var sender: String,
     @ColumnInfo(name = "transfer_status")
     var status: String,
     @ColumnInfo(name = "transfer_details")
-    var details: String
+    var details: String,
+    @ColumnInfo(name = "transfer_beneficiary_id")
+    var beneficiaryId: String,
+    @ColumnInfo(name = "transfer_beneficiary_last_name")
+    var beneficiaryLastName: String,
+    @ColumnInfo(name = "transfer_beneficiary_first_name")
+    var beneficiaryFistName: String,
+    @ColumnInfo(name = "transfer_beneficiary_phone")
+    var beneficiaryPhone: String,
+    @ColumnInfo(name = "transfer_beneficiary_email")
+    var beneficiaryEmail: String,
+    @ColumnInfo(name = "transfer_beneficiary_nationality")
+    var beneficiaryNationality: String,
+    @ColumnInfo(name = "transfer_beneficiary_sex")
+    var beneficiarySex: String,
 )

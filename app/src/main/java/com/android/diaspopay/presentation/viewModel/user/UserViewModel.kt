@@ -9,6 +9,7 @@ import androidx.lifecycle.*
 import com.android.diaspopay.data.model.api.ApiTokenResponse
 import com.android.diaspopay.data.model.api.ApiUserResponse
 import com.android.diaspopay.data.model.dataRoom.TokenRoom
+import com.android.diaspopay.data.model.dataRoom.TransferRoom
 import com.android.diaspopay.data.model.dataRoom.UserRoom
 import com.android.diaspopay.data.util.Resource
 import com.android.diaspopay.domain.usecase.user.*

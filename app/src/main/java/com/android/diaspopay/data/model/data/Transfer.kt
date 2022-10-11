@@ -26,8 +26,6 @@ data class Transfer (
     var meansPayment: String,
     @SerializedName("beneficiary")
     var beneficiary: User,
-    @SerializedName("sender")
-    var sender: User,
     @SerializedName("status")
     var status: String,
     @SerializedName("details")
