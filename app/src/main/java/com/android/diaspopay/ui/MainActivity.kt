@@ -131,7 +131,7 @@ class MainActivity : ComponentActivity() {
             }
 
             composable(route = Route.createTransferView) {
-                NewTransfer()
+                NewTransfer(navController)
             }
 
             composable(route = Route.searchView) {
