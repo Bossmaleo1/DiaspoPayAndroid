@@ -45,7 +45,6 @@ fun HomeApp(
     val listState = rememberLazyListState()
     var fabExtended by rememberSaveable { mutableStateOf(true) }
     val density = LocalDensity.current
-    var paddingValue = 0.dp
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     var isRefreshing by remember { mutableStateOf(false) }
@@ -234,9 +233,6 @@ fun HomeApp(
                     .collect {
                         fabExtended = it <= prev
                         prev = it
-                        if(isOffLine == true) {
-                            paddingValue = 50.dp
-                        }
                     }
             }
 
