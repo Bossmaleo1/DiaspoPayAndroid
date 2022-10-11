@@ -11,13 +11,17 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.android.diaspopay.data.model.data.Transfer
-import com.android.diaspopay.data.model.dataRoom.TokenRoom
+import com.android.diaspopay.data.model.data.User
 import com.android.diaspopay.data.model.dataRoom.TransferRoom
 import com.android.diaspopay.domain.usecase.transfer.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
+
 
 @HiltViewModel
 class TransferViewModel @Inject constructor(
@@ -43,19 +47,25 @@ class TransferViewModel @Inject constructor(
     private val isProgressBarMutable: MutableLiveData<Boolean> = MutableLiveData()
     val isProgressBarValue: LiveData<Boolean> = isProgressBarMutable
 
+    private val isOffLine: MutableLiveData<Boolean> = MutableLiveData()
+    val isOffLineValue: LiveData<Boolean> = isOffLine
+
     fun getTransfer(sender: String,page: Int,pagination: Boolean,token: String) {
         serverError.value = true
         viewModelScope.launch(Dispatchers.IO) {
             if (isNetworkAvailable(app)) {
                 networkStateMutable.postValue(true)
                 isProgressBarMutable.postValue(true)
+                isOffLine.postValue(true)
                 try {
                         val apiResult = getTransferUseCase.execute(sender, page,pagination = true, token = "Bearer $token")
                         apiResult.data?.let {
                             transferList.postValue(it.transfers)
                             transferStateRemoteList.addAll(it.transfers)
                             currentPage.value = page
-
+                            if (currentPage.value <= 5) {
+                                saveAllTransfer(it.transfers)
+                            }
                             if (currentPage.value == 1 && it.transfers.isEmpty()) {
                                 isEmptyResultMutable.postValue(false)
                             }
@@ -72,8 +82,6 @@ class TransferViewModel @Inject constructor(
                                 isEmptyResultMutable.postValue(true)
                             }
                         }
-
-
                         serverError.value = true
                 } catch (e: Exception) {
                     serverError.value = false
@@ -82,34 +90,102 @@ class TransferViewModel @Inject constructor(
             } else {
                 networkStateMutable.postValue(false)
                 isProgressBarMutable.postValue(false)
+                isOffLine.postValue(true)
+                //getAllTransfer()
+                //getAllTransfer().observeAsState()
             }
 
         }
     }
 
     fun saveTransferRoom(transfer: Transfer) = viewModelScope.launch {
-        saveTransferUseCase.execute(
-            TransferRoom(
-                transfer.id,
-                transfer.trackingNumber,
-                transfer.published.toString(),
-                transfer.amount,
-                transfer.fee,
-                transfer.discount,
-                transfer.exchangeRate,
-                transfer.sendingCountryIsoCode,
-                transfer.transferMotif,
-                transfer.beneficiary.id.toString(),
-                transfer.sender.id.toString(),
-                transfer.status,
-                transfer.details
+        transfer.beneficiary.lastName?.let {lastName->
+            transfer.beneficiary.firstName?.let { firstName ->
+                transfer.beneficiary.phone?.let { phone ->
+                    transfer.beneficiary.email?.let { email ->
+                        transfer.beneficiary.nationality?.let { nationality ->
+                            transfer.beneficiary.sex?.let { sex ->
+                                TransferRoom(
+                                    transfer.id,
+                                    transfer.trackingNumber,
+                                    transfer.published.toString(),
+                                    transfer.amount,
+                                    transfer.fee,
+                                    transfer.discount,
+                                    transfer.exchangeRate,
+                                    transfer.sendingCountryIsoCode,
+                                    transfer.transferMotif,
+                                    transfer.status,
+                                    transfer.details,
+                                    transfer.beneficiary.id.toString(),
+                                    lastName,
+                                    firstName,
+                                    phone,
+                                    email,
+                                    nationality,
+                                    sex
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }?.let {
+            saveTransferUseCase.execute(
+                it
             )
-        )
+        }
+    }
+
+    fun saveAllTransfer(transfers: List<Transfer>) = viewModelScope.launch {
+        transfers.forEach { transfer ->
+            saveTransferRoom(transfer)
+        }
     }
 
     fun getAllTransfer() = liveData {
-        getSavedTransferUseCase.execute().collect {
-            emit(it)
+        getSavedTransferUseCase.execute().collect {transfers ->
+            Log.d("MALEO9393"," Our Database 1")
+            emit(transfers)
+            transfers.forEach { transfersRoom ->
+                try {
+                    val dateFormat = SimpleDateFormat("E MMM dd hh:mm:ss 'GMT'Z yyyy", Locale.getDefault())
+                    val date: Date = dateFormat.parse(transfersRoom.published) as Date
+
+                    val user = User(
+                        transfersRoom.id,
+                        transfersRoom.beneficiaryLastName,
+                        transfersRoom.beneficiaryFistName,
+                        transfersRoom.beneficiaryEmail,
+                        transfersRoom.beneficiaryEmail,
+                        "",
+                        transfersRoom.beneficiaryNationality,
+                        transfersRoom.beneficiaryPhone,
+                        transfersRoom.beneficiarySex,
+                        listOf(),
+                        listOf()
+                    )
+                    transferStateRemoteList.add(
+                        Transfer(
+                            transfersRoom.id,
+                            transfersRoom.trackingNumber,
+                            date,
+                            transfersRoom.amount,
+                            transfersRoom.fee,
+                            transfersRoom.discount,
+                            transfersRoom.exchangeRate,
+                            transfersRoom.sendingCountryIsoCode,
+                            transfersRoom.transferMotif,
+                            "",
+                            user,
+                            transfersRoom.status,
+                            transfersRoom.details
+                        )
+                    )
+                } catch (e: ParseException) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 

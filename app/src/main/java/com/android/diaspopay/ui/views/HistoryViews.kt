@@ -39,9 +39,6 @@ fun HistoryView(transfer: Transfer) {
     val formatter: SimpleDateFormat = SimpleDateFormat("EEE d MMM yy", Locale.getDefault())
     val published = formatter.format(transfer.published)
 
-    //val currency = Currency()
-
-
     Card(
         modifier = Modifier
             .fillMaxWidth(),
