@@ -40,6 +40,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.android.diaspopay.ui.views.LaunchView
 import com.android.diaspopay.ui.views.Login
+import com.android.diaspopay.ui.views.NewTransfer
 import com.android.diaspopay.ui.views.bottomnavigationviews.ContactsSearchView
 import com.android.diaspopay.ui.views.model.Route
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -127,6 +128,10 @@ class MainActivity : ComponentActivity() {
                     meansPaymentViewModel,
                     transferViewModel
                 )
+            }
+
+            composable(route = Route.createTransferView) {
+                NewTransfer()
             }
 
             composable(route = Route.searchView) {
