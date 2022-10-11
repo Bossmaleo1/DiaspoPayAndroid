@@ -45,6 +45,7 @@ fun HomeApp(
     val listState = rememberLazyListState()
     var fabExtended by rememberSaveable { mutableStateOf(true) }
     val density = LocalDensity.current
+    var paddingValue = 0.dp
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     var isRefreshing by remember { mutableStateOf(false) }
@@ -57,7 +58,7 @@ fun HomeApp(
     val networkState  by transferViewModel.networkStateValue.observeAsState()
     val isEmptyResult by transferViewModel.isEmptyResultValue.observeAsState()
     val isOffLine by transferViewModel.isOffLineValue.observeAsState()
-    if(isOffLine == true) {
+    if (isOffLine == true) {
         transferViewModel.initTransfer()
         transferViewModel.getAllTransfer().observe(LocalContext.current as LifecycleOwner) {}
     }
@@ -233,30 +234,27 @@ fun HomeApp(
                     .collect {
                         fabExtended = it <= prev
                         prev = it
+                        if(isOffLine == true) {
+                            paddingValue = 50.dp
+                        }
                     }
             }
 
-            if (
-                transferViewModel.serverError.value &&
-                networkState == true
-            ) {
-                ExtendedFloatingActionButton(
-                    icon = { Icon(Icons.Filled.EuroSymbol, "") },
-                    expanded = fabExtended,
-                    modifier = Modifier.padding(bottom = 20.dp),
-                    text = {
-                        Text(
-                            text = stringResource(R.string.send_money),
-                            style = MaterialTheme.typography.titleSmall
-                        )
-                    },
-                    onClick = {
-                        navController.navigate(Route.searchView)
-                    },
-                    elevation = FloatingActionButtonDefaults.elevation(8.dp),
-                )
-            }
-
+            ExtendedFloatingActionButton(
+                icon = { Icon(Icons.Filled.EuroSymbol, "") },
+                expanded = fabExtended,
+                modifier = Modifier.padding(bottom = 20.dp),
+                text = {
+                    Text(
+                        text = stringResource(R.string.send_money),
+                        style = MaterialTheme.typography.titleSmall
+                    )
+                },
+                onClick = {
+                    navController.navigate(Route.searchView)
+                },
+                elevation = FloatingActionButtonDefaults.elevation(8.dp),
+            )
         },
        snackbarHost = {
             if (networkState == false) {
@@ -325,7 +323,9 @@ fun HomeApp(
                     listState = listState,
                     listItems = remember { transferViewModel.transferStateRemoteList },
                     paddingValues = PaddingValues(
-                        top = innerPadding.calculateTopPadding(),
+                        top = if(!fabExtended && isOffLine == true) {
+                            innerPadding.calculateTopPadding() +  50.dp//paddingValue
+                        } else { innerPadding.calculateTopPadding()},
                         bottom = innerPadding.calculateBottomPadding()
                     ),
                     transferViewModel = transferViewModel,

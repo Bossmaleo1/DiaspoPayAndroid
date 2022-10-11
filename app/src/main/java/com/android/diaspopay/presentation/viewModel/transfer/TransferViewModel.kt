@@ -47,8 +47,8 @@ class TransferViewModel @Inject constructor(
     private val isProgressBarMutable: MutableLiveData<Boolean> = MutableLiveData()
     val isProgressBarValue: LiveData<Boolean> = isProgressBarMutable
 
-    private val isOffLine: MutableLiveData<Boolean> = MutableLiveData()
-    val isOffLineValue: LiveData<Boolean> = isOffLine
+    private val isOffLineMutable: MutableLiveData<Boolean> = MutableLiveData()
+    val isOffLineValue: LiveData<Boolean> = isOffLineMutable
 
     fun getTransfer(sender: String,page: Int,pagination: Boolean,token: String) {
         serverError.value = true
@@ -56,7 +56,7 @@ class TransferViewModel @Inject constructor(
             if (isNetworkAvailable(app)) {
                 networkStateMutable.postValue(true)
                 isProgressBarMutable.postValue(true)
-                isOffLine.postValue(true)
+                isOffLineMutable.postValue(false)
                 try {
                         val apiResult = getTransferUseCase.execute(sender, page,pagination = true, token = "Bearer $token")
                         apiResult.data?.let {
@@ -90,9 +90,7 @@ class TransferViewModel @Inject constructor(
             } else {
                 networkStateMutable.postValue(false)
                 isProgressBarMutable.postValue(false)
-                isOffLine.postValue(true)
-                //getAllTransfer()
-                //getAllTransfer().observeAsState()
+                isOffLineMutable.postValue(true)
             }
 
         }
