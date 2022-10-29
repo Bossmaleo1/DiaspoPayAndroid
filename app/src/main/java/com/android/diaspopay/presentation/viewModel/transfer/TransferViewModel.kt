@@ -83,6 +83,12 @@ class TransferViewModel @Inject constructor(
                             }
                         }
                         serverError.value = true
+                        //We generate server code issues
+                        if (apiResult.data == null) {
+                            serverError.value = false
+                            isProgressBarMutable.postValue(false)
+                        }
+
                 } catch (e: Exception) {
                     serverError.value = false
                     isProgressBarMutable.postValue(false)

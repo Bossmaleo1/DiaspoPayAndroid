@@ -34,10 +34,21 @@ const val CANCEL = "Canceled"
 @Composable
 fun HistoryView(transfer: Transfer) {
     val userName by rememberSaveable { mutableStateOf("${transfer?.beneficiary?.firstName} ${transfer?.beneficiary?.lastName}") }
-    val amount by rememberSaveable { mutableStateOf("${transfer.amount} €") }
+    val amountValue = NumberFormat.getCurrencyInstance().format(transfer.amount)
+    //val locale = Locale("in_CG")
+
+    val numberFormat = NumberFormat.getCurrencyInstance(Locale("en_IN"))
+    //val numberFormat = NumberFormat.getCurrencyInstance(Locale.getDefault())
+    val symbol = numberFormat.currency.symbol
+
+
+
+    val amount by rememberSaveable { mutableStateOf("${symbol} ${numberFormat.currency} ${Locale.getDefault()}") }
 
     val formatter: SimpleDateFormat = SimpleDateFormat("EEE d MMM yy", Locale.getDefault())
     val published = formatter.format(transfer.published)
+
+
 
     Card(
         modifier = Modifier
