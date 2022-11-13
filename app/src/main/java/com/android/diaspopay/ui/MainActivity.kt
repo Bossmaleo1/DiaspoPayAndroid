@@ -46,6 +46,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import com.android.diaspopay.ui.views.NewTransfer
 
 @ExperimentalMaterial3Api
 @AndroidEntryPoint
@@ -128,6 +129,11 @@ class MainActivity : ComponentActivity() {
                     transferViewModel
                 )
             }
+
+            composable(route = Route.createTransferView) {
+                NewTransfer(navController)
+            }
+
 
             composable(route = Route.searchView) {
                 ContactsSearchView()

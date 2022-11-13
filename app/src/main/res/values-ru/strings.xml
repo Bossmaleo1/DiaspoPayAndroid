@@ -26,4 +26,5 @@
     <string name="empty_result">Вы еще не совершали переводов</string>
     <string name="network_state">У вас нет подключения к интернету</string>
     <string name="retry">повторить попытку</string>
+    <string name="transfer">Передача</string>
 </resources>

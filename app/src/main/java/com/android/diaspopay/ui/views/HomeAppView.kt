@@ -247,7 +247,7 @@ fun HomeApp(
                     )
                 },
                 onClick = {
-                    navController.navigate(Route.searchView)
+                    navController.navigate(Route.createTransferView)
                 },
                 elevation = FloatingActionButtonDefaults.elevation(8.dp),
             )
