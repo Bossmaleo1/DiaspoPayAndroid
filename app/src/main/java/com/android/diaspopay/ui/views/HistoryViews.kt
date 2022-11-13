@@ -33,8 +33,8 @@ const val CANCEL = "Canceled"
 @ExperimentalMaterial3Api
 @Composable
 fun HistoryView(transfer: Transfer) {
-    val userName by rememberSaveable { mutableStateOf("${transfer?.beneficiary?.firstName} ${transfer?.beneficiary?.lastName}") }
-    val amount by rememberSaveable { mutableStateOf("${transfer.amount} €") }
+    val userName by rememberSaveable { mutableStateOf(transfer.receiverName) }
+    val amount by rememberSaveable { mutableStateOf(transfer.amount) }
 
     val formatter: SimpleDateFormat = SimpleDateFormat("EEE d MMM yy", Locale.getDefault())
     val published = formatter.format(transfer.published)
