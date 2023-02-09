@@ -26,4 +26,5 @@
     <string name="empty_result">Você ainda não fez nenhuma transferência</string>
     <string name="network_state">Você não tem uma conexão com a Internet</string>
     <string name="retry">Tente novamente</string>
+    <string name="transfer">Transferir</string>
 </resources>
