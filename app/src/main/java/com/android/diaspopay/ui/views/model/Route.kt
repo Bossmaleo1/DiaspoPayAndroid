@@ -6,5 +6,6 @@ class Route {
         const val loginView = "login_view"
         const val homeView = "home_view"
         const val searchView = "search_view"
+        const val createTransferView = "create_transfer_view"
     }
 }

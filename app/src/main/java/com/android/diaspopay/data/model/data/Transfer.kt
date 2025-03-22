@@ -24,9 +24,13 @@ data class Transfer (
     var transferMotif: String,
     @SerializedName("meansPayment")
     var meansPayment: String,
-    @SerializedName("beneficiary")
-    var beneficiary: User,
     @SerializedName("status")
     var status: String,
+    @SerializedName("receiverName")
+    var receiverName: String,
+    @SerializedName("receiverPhoneNumber")
+    var receiverPhoneNumber: String,
     @SerializedName("details")
-    var details: String)
+    var details: String,
+    @SerializedName("currency")
+    var currency: Currency)

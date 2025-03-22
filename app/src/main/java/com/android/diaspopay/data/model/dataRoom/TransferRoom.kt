@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import java.util.*
 
 @Entity(
     tableName = "transfer_data_table",
@@ -36,18 +35,16 @@ data class TransferRoom(
     var status: String,
     @ColumnInfo(name = "transfer_details")
     var details: String,
-    @ColumnInfo(name = "transfer_beneficiary_id")
-    var beneficiaryId: String,
-    @ColumnInfo(name = "transfer_beneficiary_last_name")
-    var beneficiaryLastName: String,
-    @ColumnInfo(name = "transfer_beneficiary_first_name")
-    var beneficiaryFistName: String,
-    @ColumnInfo(name = "transfer_beneficiary_phone")
-    var beneficiaryPhone: String,
-    @ColumnInfo(name = "transfer_beneficiary_email")
-    var beneficiaryEmail: String,
-    @ColumnInfo(name = "transfer_beneficiary_nationality")
-    var beneficiaryNationality: String,
-    @ColumnInfo(name = "transfer_beneficiary_sex")
-    var beneficiarySex: String,
+    @ColumnInfo(name = "transfer_receiver_name")
+    var receiverName: String,
+    @ColumnInfo(name = "receiver_phone_number")
+    var receiverPhoneNumber: String,
+    @ColumnInfo(name = "transfer_currency_initial_currency")
+    var initialCurrency: String,
+    @ColumnInfo(name = "transfer_currency_final_currency")
+    var finalCurrency: String,
+    @ColumnInfo(name = "transfer_currency_android_country_code")
+    var androidCountryCode: String,
+    @ColumnInfo(name = "transfer_currency_euro_ex_change_rate")
+    var euroExChangeRate: Float,
 )

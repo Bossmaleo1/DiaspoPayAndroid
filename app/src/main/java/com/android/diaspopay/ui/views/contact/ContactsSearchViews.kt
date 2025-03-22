@@ -75,7 +75,6 @@ fun ContactsSearchView() {
                         .contains(
                         contactName.uppercase(Locale.getDefault())
                     )  })
-                    /*contactLists =*/
                  },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 placeholder = { Text(text= stringResource(id = R.string.search), fontSize = 12.sp) },
